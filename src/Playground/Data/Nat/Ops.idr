@@ -26,7 +26,7 @@ add (S l) r = S (add l r)
 ----------------
 
 public export
-sub : (l : Nat) -> (r : Nat) -> {auto prf : LTE r l} -> Nat
+sub : (l : Nat) -> (r : Nat) -> {auto 0 prf : LTE r l} -> Nat
 sub l Z = l
 sub Z (S r) impossible
 sub (S l) (S r) = sub l r {prf=ltePrev prf}

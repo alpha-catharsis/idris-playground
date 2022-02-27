@@ -2,11 +2,10 @@
 -- Module declaration
 ---------------------
 
-module Playground
+module Playground.Data.Void
 
 -----------------
 -- Public imports
 -----------------
 
-import public Playground.Data
-import public Playground.Prop
+import public Playground.Data.Void.Void

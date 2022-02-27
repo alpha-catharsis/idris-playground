@@ -2,11 +2,11 @@
 -- Module declaration
 ---------------------
 
-module Playground
+module Playground.Prop
 
 -----------------
 -- Public imports
 -----------------
 
-import public Playground.Data
-import public Playground.Prop
+import public Playground.Prop.Decidable
+import public Playground.Prop.Prop
