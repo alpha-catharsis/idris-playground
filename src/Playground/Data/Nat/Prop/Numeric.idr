@@ -55,8 +55,8 @@ isEq Z Z = Yes IsEq
 isEq Z (S r) = No notEqZeroSucc
 isEq (S l) Z = No notEqSuccZero
 isEq (S l) (S r) with (isEq l r)
-  isEq (S l) (S r) | Yes prf = Yes (cong S prf)
   isEq (S l) (S r) | No contra = No (\prf => contra (succInj prf))
+  isEq (S l) (S r) | Yes prf = Yes (cong S prf)
 
 ---------------
 -- LTE property
@@ -81,8 +81,8 @@ isLTE : (l : Nat) -> (r : Nat) -> Dec (LTE l r)
 isLTE Z r = Yes IsLTEZero
 isLTE (S l) Z = No notLTESuccZero
 isLTE (S l) (S r) with (isLTE l r)
-  isLTE (S l) (S r) | Yes prf = Yes (IsLTESucc prf)
   isLTE (S l) (S r) | No contra = No (\prf => contra (ltePrev prf))
+  isLTE (S l) (S r) | Yes prf = Yes (IsLTESucc prf)
 
 ---------------
 -- LT property
@@ -102,6 +102,23 @@ data Even : Nat -> Type where
   IsEvenZero : Even Z
   IsEvenSucc2 : Even n -> Even (S (S n))
 
+public export
+evenPrev : Even (S (S n)) -> Even n
+evenPrev IsEvenZero impossible
+evenPrev (IsEvenSucc2 prf) = prf
+
+public export
+notEvenOne : Even (S Z) -> Void
+notEvenOne _ impossible
+
+public export
+isEven : (n : Nat) -> Dec (Even n)
+isEven Z = Yes IsEvenZero
+isEven (S Z) = No notEvenOne
+isEven (S (S n)) with (isEven n)
+  isEven (S (S n)) | No contra = No (\prf => contra (evenPrev prf))
+  isEven (S (S n)) | Yes prf = Yes (IsEvenSucc2 prf)
+
 ---------------
 -- Odd property
 ---------------
@@ -110,3 +127,20 @@ public export
 data Odd : Nat -> Type where
   IsOddOne : Odd (S Z)
   IsOddSucc2 : Odd n -> Odd (S (S n))
+
+public export
+oddPrev : Odd (S (S n)) -> Odd n
+oddPrev IsOddOne impossible
+oddPrev (IsOddSucc2 prf) = prf
+
+public export
+notOddZero : Odd Z -> Void
+notOddZero _ impossible
+
+public export
+isOdd : (n : Nat) -> Dec (Odd n)
+isOdd Z = No notOddZero
+isOdd (S Z) = Yes IsOddOne
+isOdd (S (S n)) with (isOdd n)
+  isOdd (S (S n)) | No contra = No (\prf => contra (oddPrev prf))
+  isOdd (S (S n)) | Yes prf = Yes (IsOddSucc2 prf)
