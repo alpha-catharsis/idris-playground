@@ -4,6 +4,12 @@
 
 module Playground.Prop.Rel
 
+-------------------
+-- Internal imports
+-------------------
+
+import Playground.Data.Void.Void
+
 ------------
 -- Reflexive
 ------------
@@ -27,6 +33,18 @@ data Sym : (a -> a -> Type) -> Type where
 public export
 sym : Sym p -> {x : a} -> {y : a} -> p x y -> p y x
 sym (IsSym f) prf = f {x} {y} prf
+
+-------------
+-- Asymmetric
+-------------
+
+public export
+data Asym : (a -> a -> Type) -> Type where
+  IsAsym : {0 p : a -> a -> Type} -> (f : {x : a} -> {y : a} -> p x y -> p y x -> Void) -> Asym p
+
+public export
+asym : Asym p -> {x : a} -> {y : a} -> p x y -> p y x -> Void
+asym (IsAsym f) lprf rprf = f {x} {y} lprf rprf
 
 -------------
 -- Transitive

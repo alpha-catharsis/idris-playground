@@ -155,6 +155,23 @@ isLT (S l) (S r) with (isLT l r)
   isLT (S l) (S r) | No contra = No (\prf => contra (ltPrev prf))
   isLT (S l) (S r) | Yes prf = Yes (IsLTSucc prf)
 
+public export
+asymLT : Asym LT
+asymLT = IsAsym f
+  where f : {x : Nat} -> {y : Nat} -> LT x y -> LT y x -> Void
+        f IsLTZero IsLTZero impossible
+        f (IsLTSucc xy) IsLTZero impossible
+        f IsLTZero (IsLTSucc yx) impossible
+        f (IsLTSucc xy) (IsLTSucc yx) = f xy yx
+
+public export
+transLT : Trans LT
+transLT = IsTrans f
+  where f : {x : Nat} -> {y : Nat} -> {z : Nat} -> LT x y -> LT y z -> LT x z
+        f IsLTZero IsLTZero impossible
+        f IsLTZero (IsLTSucc yz) = IsLTZero
+        f (IsLTSucc xy) (IsLTSucc yz) = IsLTSucc (f xy yz)
+
 ----------------
 -- Even property
 ----------------
