@@ -13,7 +13,7 @@ authors = "Alpha Catharsis"
 -- depends =
 
 -- modules to install
-modules = Playground.Data.Nat
+modules = Playground
 
 -- main file (i.e. file to load at REPL)
 main = Main
