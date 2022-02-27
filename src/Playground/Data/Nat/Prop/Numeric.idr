@@ -11,6 +11,7 @@ module Playground.Data.Nat.Prop.Numeric
 import Playground.Data.Nat.Nat
 import Playground.Data.Void.Void
 import Playground.Prop.Decidable
+import Playground.Prop.Rel
 
 -------------------
 -- NonZero property
@@ -58,6 +59,24 @@ isEq (S l) (S r) with (isEq l r)
   isEq (S l) (S r) | No contra = No (\prf => contra (succInj prf))
   isEq (S l) (S r) | Yes prf = Yes (cong S prf)
 
+public export
+reflEq : Refl Eq
+reflEq = IsRefl f
+  where f : {x : Nat} -> Eq x x
+        f = IsEq
+
+public export
+symEq : Sym Eq
+symEq = IsSym f
+  where f : {x : Nat} -> {y : Nat} -> Eq x y -> Eq y x
+        f IsEq = IsEq
+
+public export
+transEq : Trans Eq
+transEq = IsTrans f
+  where f : {x : Nat} -> {y : Nat} -> {z : Nat} -> Eq x y -> Eq y z -> Eq x z
+        f IsEq IsEq = IsEq
+
 ---------------
 -- LTE property
 ---------------
@@ -84,6 +103,27 @@ isLTE (S l) (S r) with (isLTE l r)
   isLTE (S l) (S r) | No contra = No (\prf => contra (ltePrev prf))
   isLTE (S l) (S r) | Yes prf = Yes (IsLTESucc prf)
 
+public export
+reflLTE : Refl LTE
+reflLTE = IsRefl f
+  where f : {x : Nat} -> LTE x x
+        f {x=Z} = IsLTEZero
+        f {x=S y} = IsLTESucc (f {x=y})
+
+public export
+transLTE : Trans LTE
+transLTE = IsTrans f
+  where f : {x : Nat} -> {y : Nat} -> {z : Nat} -> LTE x y -> LTE y z -> LTE x z
+        f IsLTEZero _ = IsLTEZero
+        f (IsLTESucc xy) (IsLTESucc yz) = IsLTESucc (f xy yz)
+
+public export
+antiSymLTE : AntiSym LTE Eq
+antiSymLTE = IsAntiSym f
+  where f : {x : Nat} -> {y : Nat} -> LTE x y -> LTE y x -> Eq x y
+        f IsLTEZero IsLTEZero = IsEq
+        f (IsLTESucc xy) (IsLTESucc yx) = cong S (f xy yx)
+
 ---------------
 -- LT property
 ---------------
@@ -92,6 +132,28 @@ public export
 data LT : Nat -> Nat -> Type where
   IsLTZero : LT Z (S r)
   IsLTSucc : LT l r -> LT (S l) (S r)
+
+public export
+ltPrev : LT (S l) (S r) -> LT l r
+ltPrev IsLTZero impossible
+ltPrev (IsLTSucc prf) = prf
+
+public export
+notLTSuccZero : LT (S l) Z -> Void
+notLTSuccZero _ impossible
+
+public export
+notLTBothZero : LT Z Z -> Void
+notLTBothZero _impossible
+
+public export
+isLT : (l : Nat) -> (r : Nat) -> Dec (LT l r)
+isLT Z Z = No notLTBothZero
+isLT Z (S r) = Yes IsLTZero
+isLT (S l) Z = No notLTSuccZero
+isLT (S l) (S r) with (isLT l r)
+  isLT (S l) (S r) | No contra = No (\prf => contra (ltPrev prf))
+  isLT (S l) (S r) | Yes prf = Yes (IsLTSucc prf)
 
 ----------------
 -- Even property
