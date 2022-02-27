@@ -10,3 +10,4 @@ module Playground.Data.Nat
 
 import public Playground.Data.Nat.Nat
 import public Playground.Data.Nat.Ops
+import public Playground.Data.Nat.Prop
