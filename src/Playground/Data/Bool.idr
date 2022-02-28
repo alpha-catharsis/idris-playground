@@ -2,11 +2,11 @@
 -- Module declaration
 ---------------------
 
-module Playground.Data
+module Playground.Data.Bool
 
 -----------------
 -- Public imports
 -----------------
 
-import public Playground.Data.Bool
-import public Playground.Data.Void
+import public Playground.Data.Bool.Bool
+import public Playground.Data.Bool.Equal

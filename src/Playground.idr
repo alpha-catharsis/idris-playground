@@ -9,4 +9,6 @@ module Playground
 -----------------
 
 import public Playground.Data
+import public Playground.Decidable
 import public Playground.Prop
+import public Playground.Rel

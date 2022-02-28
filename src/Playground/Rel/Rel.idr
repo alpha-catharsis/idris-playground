@@ -2,7 +2,7 @@
 -- Module declaration
 ---------------------
 
-module Playground.Prop.Prop
+module Playground.Rel.Rel
 
 -------------------
 -- Internal imports
@@ -12,21 +12,21 @@ import Playground.Data.Bool.Bool
 import Playground.Decidable.Decidable
 
 ----------------------
--- Property definition
+-- Relation definition
 ----------------------
 
 public export
-Prop : Type -> Type
-Prop a = a -> Type
+Rel : Type -> Type -> Type
+Rel a b = a -> b -> Type
 
 -------------------------------
--- Decidable property interface
+-- Decidable relation interface
 -------------------------------
 
 public export
-interface DecProp a (0 p : Prop a) where
-  decProp : (x : a) -> Dec (p x)
+interface DecRel a b (0 r : Rel a b) where
+  decRel : (x : a) -> (y : b) -> Dec (r x y)
 
 public export
-prop : (0 p : Prop a) -> DecProp a p => (x : a) -> Bool
-prop p x = isYes (decProp {p} x)
+rel : (0 r : Rel a b) -> DecRel a b r => (x : a) -> (y : b) -> Bool
+rel r x y = isYes (decRel {r} x y)
