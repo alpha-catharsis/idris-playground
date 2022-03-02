@@ -9,7 +9,9 @@ module Playground.Prop.Prop
 -------------------
 
 import Playground.Data.Bool.Bool
+import Playground.Data.Void.Void
 import Playground.Decidable.Decidable
+import Playground.Logic.Logic
 
 ----------------------
 -- Property definition
@@ -18,6 +20,22 @@ import Playground.Decidable.Decidable
 public export
 Prop : Type -> Type
 Prop a = a -> Type
+
+----------------------------
+-- Proven property interface
+----------------------------
+
+public export
+interface ProvenProp (0 p : Prop a) (0 x : a) where
+  prvn : p x
+
+-------------------------------
+-- Disproven property interface
+-------------------------------
+
+public export
+interface DisprovenProp (0 p : Prop a) (0 x : a) where
+  disp : Not (p x)
 
 -------------------------------
 -- Decidable property interface

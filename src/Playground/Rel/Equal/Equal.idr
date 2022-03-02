@@ -15,5 +15,5 @@ import Playground.Rel.Rel
 -------------------
 
 public export
-data Equal : Rel a b where
+data Equal : a -> b -> Type where
   AreEqual : Equal x x
