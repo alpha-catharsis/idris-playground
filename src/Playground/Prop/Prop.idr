@@ -11,6 +11,7 @@ module Playground.Prop.Prop
 import Playground.Data.Bool.Bool
 import Playground.Data.Void.Void
 import Playground.Decidable.Decidable
+import Playground.Logic.Inhabited
 import Playground.Logic.Logic
 
 ----------------------
@@ -27,7 +28,15 @@ Prop a = a -> Type
 
 public export
 interface ProvenProp (0 p : Prop a) (0 x : a) where
-  prvn : p x
+  provenProp : p x
+
+public export
+prvn : (0 p : Prop a) -> (0 x : a) -> ProvenProp p x => p x
+prvn p x = provenProp {p} {x}
+
+public export
+ProvenProp p x => Inhabited (p x) where
+  inhabited = prvn p x
 
 -------------------------------
 -- Disproven property interface
@@ -35,7 +44,15 @@ interface ProvenProp (0 p : Prop a) (0 x : a) where
 
 public export
 interface DisprovenProp (0 p : Prop a) (0 x : a) where
-  disp : Not (p x)
+  disprovenProp : Not (p x)
+
+public export
+disp : (0 p : Prop a) -> (0 x : a) -> DisprovenProp p x => Not (p x)
+disp p x = disprovenProp {p} {x}
+
+public export
+DisprovenProp p x => Uninhabited (p x) where
+  uninhabited = disp p x
 
 -------------------------------
 -- Decidable property interface

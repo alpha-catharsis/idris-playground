@@ -11,6 +11,7 @@ module Playground.Rel.Rel
 import Playground.Data.Bool.Bool
 import Playground.Data.Void.Void
 import Playground.Decidable.Decidable
+import Playground.Logic.Inhabited
 import Playground.Logic.Logic
 
 ----------------------
@@ -27,7 +28,15 @@ Rel a b = a -> b -> Type
 
 public export
 interface ProvenRel (0 r : Rel a b) (0 x : a) (0 y : b) where
-  prvn : r x y
+  provenRel : r x y
+
+public export
+prvn : (0 r : Rel a b) -> (0 x : a) -> (0 y : b) -> ProvenRel r x y => r x y
+prvn r x y = provenRel {r} {x} {y}
+
+public export
+ProvenRel r x y => Inhabited (r x y) where
+  inhabited = prvn r x y
 
 -------------------------------
 -- Disproven relation interface
@@ -35,7 +44,15 @@ interface ProvenRel (0 r : Rel a b) (0 x : a) (0 y : b) where
 
 public export
 interface DisprovenRel (0 r : Rel a b) (0 x : a) (0 y : b) where
-  disp : Not (r x y)
+  disprovenRel : Not (r x y)
+
+public export
+disp : (0 r : Rel a b) -> (0 x : a) -> (0 y : b) -> DisprovenRel r x y => Not (r x y)
+disp r x y = disprovenRel {r} {x} {y}
+
+public export
+DisprovenRel r x y => Uninhabited (r x y) where
+  uninhabited = disp r x y
 
 -------------------------------
 -- Decidable relation interface

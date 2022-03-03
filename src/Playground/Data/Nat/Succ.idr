@@ -21,15 +21,15 @@ import Playground.Rel.Equal.Equal
 -- Succ is injective
 --------------------
 
--- public export
--- ProvenProp Injective S where
---   prvn = IsInjective S (\AreEqual => AreEqual)
+public export
+ProvenProp Injective S where
+  provenProp = IsInjective S (\AreEqual => AreEqual)
 
 -------------------------
 -- Succ is not surjective
 -------------------------
 
--- public export
--- DisprovenProp Surjective S where
---   disp (IsSurjective S f) with (f Z)
---     disp (IsSurjective S f) | MkDPair _ _ impossible
+public export
+DisprovenProp Surjective S where
+  disprovenProp (IsSurjective S f) with (f Z)
+    disprovenProp (IsSurjective S f) | MkDPair _ _ impossible

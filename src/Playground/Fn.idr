@@ -10,4 +10,5 @@ module Playground.Fn
 
 import public Playground.Fn.Fn
 import public Playground.Fn.Injective
+import public Playground.Fn.Invertible
 import public Playground.Fn.Surjective
