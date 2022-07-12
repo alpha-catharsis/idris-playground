@@ -20,7 +20,7 @@ main = Main
 
 -- name of executable
 executable = "idris-play"
-opts = "--no-prelude --total --Werror"
+opts = "--total --Werror"
 sourcedir = "src"
 -- builddir =
 -- outputdir =

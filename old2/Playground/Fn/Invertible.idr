@@ -11,6 +11,7 @@ module Playground.Fn.Invertible
 import Playground.Fn.Fn
 import Playground.Fn.Injective
 import Playground.Fn.Surjective
+import Playground.Prop.Prop
 import Playground.Rel.Equal.Equal
 
 -----------------------
@@ -25,5 +26,5 @@ data Invertible : (f : a -> b) -> Type where
                  ((y : b) -> Equal (f (g y)) y) ->
                  Invertible f
 
-inv : {0 f : a -> b} -> Invertible f -> (b -> a)
-inv (IsInvertible _ g _ _) = g
+inv : (f : a -> b) -> Invertible f => (b -> a)
+inv f @{IsInvertible _ g _ _} = g
