@@ -1,9 +1,7 @@
 module Main
 
-import Prelude
-
 import Playground
 
-main : IO Builtin.Unit
+main : IO ()
 main = do
   putStrLn "OK"

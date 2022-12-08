@@ -2,12 +2,11 @@
 -- Module declaration
 ---------------------
 
-module Playground
+module Playground.Rel
 
 -----------------
 -- Public imports
 -----------------
 
-import public Playground.Decidable
-import public Playground.Data
-import public Playground.Rel
+import public Playground.Rel.Rel
+import public Playground.Rel.Truth

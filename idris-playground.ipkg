@@ -19,8 +19,8 @@ modules = Playground
 main = Main
 
 -- name of executable
-executable = "idris-play"
-opts = "--total --Werror"
+executable = "playground"
+opts = "--no-prelude --total --Werror"
 sourcedir = "src"
 -- builddir =
 -- outputdir =
