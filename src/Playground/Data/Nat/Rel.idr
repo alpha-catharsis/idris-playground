@@ -2,11 +2,11 @@
 -- Module declaration
 ---------------------
 
-module Playground.Data.Nat.Props
+module Playground.Data.Nat.Rel
 
 -----------------
 -- Public imports
 -----------------
 
-import public Playground.Data.Nat.Props.Even
-import public Playground.Data.Nat.Props.Odd
+import public Playground.Data.Nat.Rel.LT
+import public Playground.Data.Nat.Rel.LTE

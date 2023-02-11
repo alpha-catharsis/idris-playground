@@ -16,8 +16,8 @@ import Builtin
 
 import Playground.Basics
 import Playground.Data.Nat.Nat
-import Playground.Data.Nat.Props.Even
-import Playground.Data.Nat.Props.Odd
+import Playground.Data.Nat.Prop.Even
+import Playground.Data.Nat.Prop.Odd
 
 ----------------------------------
 -- Even and Odd uninhabited values

@@ -10,5 +10,6 @@ module Playground.Data.Nat
 
 import public Playground.Data.Nat.Nat
 import public Playground.Data.Nat.Ops
-import public Playground.Data.Nat.Props
+import public Playground.Data.Nat.Prop
+import public Playground.Data.Nat.Rel
 import public Playground.Data.Nat.Theorems

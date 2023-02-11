@@ -17,8 +17,10 @@ import Builtin
 import Playground.Basics
 import Playground.Data.Nat.Nat
 import Playground.Data.Nat.Ops.Plus
-import Playground.Data.Nat.Props.Even
-import Playground.Data.Nat.Props.Odd
+import Playground.Data.Nat.Prop.Even
+import Playground.Data.Nat.Prop.Odd
+import Playground.Data.Nat.Rel.LT
+import Playground.Data.Nat.Rel.LTE
 import Playground.Data.Nat.Theorems.EvenOdd
 
 ---------------
@@ -91,3 +93,26 @@ plusOddOddIsEven (OddS lprf')        OddO                =
 plusOddOddIsEven (OddS lprf' {n=n'}) (OddS rprf' {n=m'}) =
   rewrite plusRightSucc n' (S m') in
   rewrite plusRightSucc n' m' in EvenS (EvenS (plusOddOddIsEven lprf' rprf'))
+
+--------------
+-- plus LT/LTE
+--------------
+
+public export
+plusLeftLTE : (n : Nat) -> (m : Nat) -> LTE n (plus n m)
+plusLeftLTE Z      _ = LTEZero
+plusLeftLTE (S n') m = LTESucc (plusLeftLTE n' m)
+
+public export
+plusRightLTE : (n : Nat) -> (m : Nat) -> LTE m (plus n m)
+plusRightLTE n m = rewrite plusCommutative n m in plusLeftLTE m n
+
+public export
+plusLeftLT : (n : Nat) -> (m : Nat) -> LT n (plus n (S m))
+plusLeftLT Z      _ = LTZero
+plusLeftLT (S n') m = LTSucc (plusLeftLT n' m)
+
+public export
+plusRightLT : (n : Nat) -> (m : Nat) -> LT m (plus (S n) m)
+plusRightLT n m = rewrite plusCommutative n m in
+                  rewrite sym (plusRightSucc m n) in plusLeftLT m n
