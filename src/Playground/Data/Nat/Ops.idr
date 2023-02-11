@@ -2,10 +2,10 @@
 -- Module declaration
 ---------------------
 
-module Playground.Data.Void
+module Playground.Data.Nat.Ops
 
 -----------------
 -- Public imports
 -----------------
 
-import public Playground.Data.Void.Void
+import public Playground.Data.Nat.Ops.Plus

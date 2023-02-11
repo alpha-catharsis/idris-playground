@@ -1,0 +1,20 @@
+---------------------
+-- Module declaration
+---------------------
+
+module Playground.Data.Nat.Props.Even
+
+-------------------
+-- Internal imports
+-------------------
+
+import Playground.Data.Nat.Nat
+
+-------
+-- Even
+-------
+
+public export
+data Even : (n : Nat) -> Type where
+  EvenZ : Even Z
+  EvenS : (prf : Even n) -> Even (S (S n))

@@ -2,10 +2,11 @@
 -- Module declaration
 ---------------------
 
-module Playground.Decidable
+module Playground.Data.Nat.Props
 
 -----------------
 -- Public imports
 -----------------
 
-import public Playground.Decidable.Decidable
+import public Playground.Data.Nat.Props.Even
+import public Playground.Data.Nat.Props.Odd
