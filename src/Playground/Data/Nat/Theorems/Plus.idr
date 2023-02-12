@@ -107,28 +107,22 @@ plusOddOddIsEven (OddS lprf' {n=n'}) (OddS rprf' {n=m'}) =
 -- plus LT/LTE
 --------------
 
--- public export
--- plusLeftLTE : (n : Nat) -> (m : Nat) -> LTE n (plus n m)
--- plusLeftLTE Z      _ = LTEZero
--- plusLeftLTE (S n') m = LTESucc (plusLeftLTE n' m)
+public export
+plusLeftLTE : (n : Nat) -> (m : Nat) -> LTE n (plus n m)
+plusLeftLTE Z      _ = LTEZero
+plusLeftLTE (S n') m = LTESucc (plusLeftLTE n' m)
 
--- public export
--- plusRightLTE : (n : Nat) -> (m : Nat) -> LTE m (plus n m)
--- plusRightLTE n m = rewrite plusCommutative n m in plusLeftLTE m n
+public export
+plusRightLTE : (n : Nat) -> (m : Nat) -> LTE m (plus n m)
+plusRightLTE n m = rewrite plusCommutative n m in plusLeftLTE m n
 
--- public export
--- plusLeftLT : (n : Nat) -> (m : Nat) -> LT n (plus n (S m))
--- plusLeftLT Z      _ = LTZero
--- plusLeftLT (S n') m = LTSucc (plusLeftLT n' m)
+public export
+plusLeftLT : (n : Nat) -> (m : Nat) -> LT n (plus n (S m))
+plusLeftLT Z      _ = LTZero
+plusLeftLT (S n') m = LTSucc (plusLeftLT n' m)
 
--- public export
--- plusRightLT : (n : Nat) -> (m : Nat) -> LT m (plus (S n) m)
--- plusRightLT n m = rewrite plusCommutative n m in
---                   rewrite sym (plusRightSucc m n) in plusLeftLT m n
+public export
+plusRightLT : (n : Nat) -> (m : Nat) -> LT m (plus (S n) m)
+plusRightLT n m = rewrite plusCommutative n m in
+                  rewrite sym (plusRightSucc m n) in plusLeftLT m n
 
-
--- public export
--- plusLeftLT : (n : Nat) -> (m : Nat) -> LT n (plus n (S m))
--- plusLeftLT Z      Z      = LTNext
--- plusLeftLT Z      (S m') = LTSucc (plusLeftLT Z m')
--- plusLeftLT (S n') m      = bothNextLT (plusLeftLT n' m)
