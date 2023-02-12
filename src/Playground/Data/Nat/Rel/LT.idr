@@ -16,5 +16,5 @@ import Playground.Data.Nat.Nat
 
 public export
 data LT : (n : Nat) -> (m : Nat) -> Type where
-  LTZero   : LT Z (S n)
+  LTZero : LT Z (S m)
   LTSucc : LT n m -> LT (S n) (S m)

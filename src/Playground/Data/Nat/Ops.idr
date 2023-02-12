@@ -9,3 +9,4 @@ module Playground.Data.Nat.Ops
 -----------------
 
 import public Playground.Data.Nat.Ops.Plus
+import public Playground.Data.Nat.Ops.Prev
