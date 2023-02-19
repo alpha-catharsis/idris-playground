@@ -32,8 +32,8 @@ import Playground.Fn.Repeat.Theorems.Repeat
 
 %hint
 public export
-plusLeftZeroNeutral : plus Z m = m
-plusLeftZeroNeutral = repeatZeroId S
+plusLeftZeroNeutral : (0 m : Nat) -> plus Z m = m
+plusLeftZeroNeutral _ = repeatZeroId S
 
 %hint
 public export
@@ -46,14 +46,14 @@ plusRightZeroNeutral = repeatSuccOnZero
 
 %hint
 public export
-plusLeftSucc : plus (S n) m = S (plus n m)
-plusLeftSucc = repeatUnfoldOutside S n m
+plusLeftSucc : (0 n : Nat) -> (0 m : Nat) -> plus (S n) m = S (plus n m)
+plusLeftSucc = repeatUnfoldOutside S
 
 %hint
 public export
-plusRightSucc : plus n (S m) = S (plus n m)
-plusRightSucc = rewrite sym (repeatOrdInvariant S n m)
-                in repeatUnfoldInside S n m
+plusRightSucc : (0 n : Nat) -> (0 m : Nat) -> plus n (S m) = S (plus n m)
+plusRightSucc n m = rewrite sym (repeatOrdInvariant S n m)
+                    in repeatUnfoldInside S n m
 
 -------------------
 -- plus commutative
@@ -62,7 +62,7 @@ plusRightSucc = rewrite sym (repeatOrdInvariant S n m)
 %hint
 public export
 plusCommutative : (n : Nat) -> (0 m : Nat) -> plus n m = plus m n
-plusCommutative Z      m = rewrite repeatSuccOnZero m in Refl
+plusCommutative Z      m = rewrite plusRightZeroNeutral m in Refl
 plusCommutative (S n') m = plusCommutative n' (S m)
 
 -------------------
@@ -108,7 +108,7 @@ plusOddOddIsEven (OddS lprf') rprf         = plusOddOddIsEven lprf' (OddS rprf)
 public export
 plusLeftLTE : (n : Nat) -> (0 m : Nat) -> LTE n (plus n m)
 plusLeftLTE Z      _ = LTEZero
-plusLeftLTE (S n') m = rewrite repeatUnfoldOutside S n' m
+plusLeftLTE (S n') m = rewrite plusLeftSucc n' m
                        in LTESucc (plusLeftLTE n' m)
 
 %hint
@@ -120,7 +120,7 @@ plusRightLTE n m = rewrite plusCommutative n m in plusLeftLTE m n
 public export
 plusLeftLT : (n : Nat) -> (0 m : Nat) -> LT n (plus n (S m))
 plusLeftLT Z      _ = LTZero
-plusLeftLT (S n') m = rewrite repeatUnfoldOutside S n' (S m)
+plusLeftLT (S n') m = rewrite plusLeftSucc n' (S m)
                       in LTSucc (plusLeftLT n' m)
 
 %hint
