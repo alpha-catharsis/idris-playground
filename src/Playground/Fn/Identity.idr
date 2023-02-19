@@ -2,12 +2,10 @@
 -- Module declaration
 ---------------------
 
-module Playground
+module Playground.Fn.Identity
 
 -----------------
 -- Public imports
 -----------------
 
-import public Playground.Basics
-import public Playground.Data
-import public Playground.Fn
+import public Playground.Fn.Identity.Identity

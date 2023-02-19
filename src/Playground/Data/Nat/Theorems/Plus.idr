@@ -22,6 +22,9 @@ import Playground.Data.Nat.Prop.Odd
 import Playground.Data.Nat.Rel.LT
 import Playground.Data.Nat.Rel.LTE
 import Playground.Data.Nat.Theorems.EvenOdd
+import Playground.Fn.Repeat.Repeat
+import Playground.Fn.Repeat.Theorems.Nat
+import Playground.Fn.Repeat.Theorems.Repeat
 
 ---------------
 -- plus neutral
@@ -30,13 +33,12 @@ import Playground.Data.Nat.Theorems.EvenOdd
 %hint
 public export
 plusLeftZeroNeutral : plus Z m = m
-plusLeftZeroNeutral = Refl
+plusLeftZeroNeutral = repeatZeroId S
 
 %hint
 public export
 plusRightZeroNeutral : (n : Nat) -> plus n Z = n
-plusRightZeroNeutral Z      = Refl
-plusRightZeroNeutral (S n') = cong S (plusRightZeroNeutral n')
+plusRightZeroNeutral = repeatSuccOnZero
 
 ------------
 -- plus succ
@@ -45,13 +47,13 @@ plusRightZeroNeutral (S n') = cong S (plusRightZeroNeutral n')
 %hint
 public export
 plusLeftSucc : plus (S n) m = S (plus n m)
-plusLeftSucc = Refl
+plusLeftSucc = repeatUnfoldOutside S n m
 
 %hint
 public export
-plusRightSucc : (n : Nat) -> (0 m : Nat) -> plus n (S m) = S (plus n m)
-plusRightSucc Z      _ = Refl
-plusRightSucc (S n') m = cong S (plusRightSucc n' m)
+plusRightSucc : plus n (S m) = S (plus n m)
+plusRightSucc = rewrite sym (repeatOrdInvariant S n m)
+                in repeatUnfoldInside S n m
 
 -------------------
 -- plus commutative
@@ -60,9 +62,8 @@ plusRightSucc (S n') m = cong S (plusRightSucc n' m)
 %hint
 public export
 plusCommutative : (n : Nat) -> (0 m : Nat) -> plus n m = plus m n
-plusCommutative Z      m = rewrite plusRightZeroNeutral m in Refl
-plusCommutative (S n') m = rewrite plusRightSucc m n'
-                           in cong S (plusCommutative n' m)
+plusCommutative Z      m = rewrite repeatSuccOnZero m in Refl
+plusCommutative (S n') m = plusCommutative n' (S m)
 
 -------------------
 -- plus associative
@@ -72,8 +73,10 @@ plusCommutative (S n') m = rewrite plusRightSucc m n'
 public export
 plusAssociative : (n : Nat) -> (0 m : Nat) -> (0 o : Nat) ->
                   plus n (plus m o) = plus (plus n m) o
-plusAssociative Z      _ _ = Refl
-plusAssociative (S n') m o = cong S (plusAssociative n' m o)
+plusAssociative Z      m o = Refl
+plusAssociative (S n') m o = rewrite repeatUnfoldInside S n' (repeat S m o)
+                             in rewrite sym (repeatOrdInvariant S m o)
+                             in plusAssociative n' (S m) o
 
 ----------------
 -- plus Even/Odd
@@ -83,46 +86,44 @@ plusAssociative (S n') m o = cong S (plusAssociative n' m o)
 public export
 plusEvenEvenIsEven : Even n -> Even m -> Even (plus n m)
 plusEvenEvenIsEven EvenZ         rprf = rprf
-plusEvenEvenIsEven (EvenS lprf') rprf = EvenS (plusEvenEvenIsEven lprf' rprf)
+plusEvenEvenIsEven (EvenS lprf') rprf = plusEvenEvenIsEven lprf' (EvenS rprf)
 
 %hint
 public export
 plusEvenOddIsOdd : Even n -> Odd m -> Odd (plus n m)
 plusEvenOddIsOdd EvenZ         rprf = rprf
-plusEvenOddIsOdd (EvenS lprf') rprf = OddS (plusEvenOddIsOdd lprf' rprf)
+plusEvenOddIsOdd (EvenS lprf') rprf = plusEvenOddIsOdd lprf' (OddS rprf)
 
-%hint
 public export
 plusOddOddIsEven : Odd n -> Odd m -> Even (plus n m)
-plusOddOddIsEven OddO                OddO                = EvenS EvenZ
-plusOddOddIsEven OddO                (OddS rprf')        =
-  EvenS (plusOddOddIsEven OddO rprf')
-plusOddOddIsEven (OddS lprf')        OddO                =
-  EvenS (plusOddOddIsEven lprf' OddO)
-plusOddOddIsEven (OddS lprf' {n=n'}) (OddS rprf' {n=m'}) =
-  rewrite plusRightSucc n' (S m') in
-  rewrite plusRightSucc n' m' in EvenS (EvenS (plusOddOddIsEven lprf' rprf'))
+plusOddOddIsEven OddO         OddO         = EvenS EvenZ
+plusOddOddIsEven OddO         (OddS rprf') = EvenS (plusOddOddIsEven OddO rprf')
+plusOddOddIsEven (OddS lprf') rprf         = plusOddOddIsEven lprf' (OddS rprf)
 
 --------------
 -- plus LT/LTE
 --------------
 
+%hint
 public export
-plusLeftLTE : (n : Nat) -> (m : Nat) -> LTE n (plus n m)
+plusLeftLTE : (n : Nat) -> (0 m : Nat) -> LTE n (plus n m)
 plusLeftLTE Z      _ = LTEZero
-plusLeftLTE (S n') m = LTESucc (plusLeftLTE n' m)
+plusLeftLTE (S n') m = rewrite repeatUnfoldOutside S n' m
+                       in LTESucc (plusLeftLTE n' m)
 
+%hint
 public export
-plusRightLTE : (n : Nat) -> (m : Nat) -> LTE m (plus n m)
+plusRightLTE : (0 n : Nat) -> (m : Nat) -> LTE m (plus n m)
 plusRightLTE n m = rewrite plusCommutative n m in plusLeftLTE m n
 
+%hint
 public export
-plusLeftLT : (n : Nat) -> (m : Nat) -> LT n (plus n (S m))
+plusLeftLT : (n : Nat) -> (0 m : Nat) -> LT n (plus n (S m))
 plusLeftLT Z      _ = LTZero
-plusLeftLT (S n') m = LTSucc (plusLeftLT n' m)
+plusLeftLT (S n') m = rewrite repeatUnfoldOutside S n' (S m)
+                      in LTSucc (plusLeftLT n' m)
 
+%hint
 public export
-plusRightLT : (n : Nat) -> (m : Nat) -> LT m (plus (S n) m)
-plusRightLT n m = rewrite plusCommutative n m in
-                  rewrite sym (plusRightSucc m n) in plusLeftLT m n
-
+plusRightLT : (0 n : Nat) -> (m : Nat) -> LT m (plus (S n) m)
+plusRightLT n m = rewrite plusCommutative (S n) m in plusLeftLT m n

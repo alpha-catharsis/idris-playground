@@ -9,6 +9,7 @@ module Playground.Data.Nat.Ops.Plus
 -------------------
 
 import Playground.Data.Nat.Nat
+import Playground.Fn.Repeat.Repeat
 
 -----------------
 -- plus operation
@@ -16,5 +17,4 @@ import Playground.Data.Nat.Nat
 
 public export
 plus : Nat -> Nat -> Nat
-plus Z m      = m
-plus (S n') m = S (plus n' m)
+plus n = repeat S n
