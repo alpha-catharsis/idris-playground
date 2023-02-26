@@ -114,13 +114,13 @@ plusRightOneSucc m = repeatSuccOnZero (S m)
 %hint
 public export
 plusLeftSuccSucc : (m, n, o : Nat) -> plus m n = o -> plus (S m) n = S o
-plusLeftSuccSucc Z      _ _ prf = cong S prf
+plusLeftSuccSucc Z      _ _ prf = succCong prf
 plusLeftSuccSucc (S m') n o prf = plusLeftSuccSucc m' (S n) o prf
 
 %hint
 public export
 plusRightSuccSucc : (m, n, o : Nat) -> plus m n = o -> plus m (S n) = S o
-plusRightSuccSucc Z      _ _ prf = cong S prf
+plusRightSuccSucc Z      _ _ prf = succCong prf
 plusRightSuccSucc (S m') n o prf = plusRightSuccSucc m' (S n) o prf
 
 -----------------
@@ -133,7 +133,7 @@ plusLeftSuccCong : (m, n, o, p : Nat) -> plus m n = plus o p ->
                    plus (S m) n = plus (S o) p
 plusLeftSuccCong Z      n o p prf = rewrite plusLeftSucc Z n in
                                     rewrite plusLeftSucc o p in
-                                    cong S prf
+                                    succCong prf
 plusLeftSuccCong (S m') n o p prf = plusLeftSuccCong m' (S n) o p prf
 
 %hint
@@ -142,7 +142,7 @@ plusRightSuccCong : (m, n, o, p : Nat) -> plus m n = plus o p ->
                     plus m (S n) = plus o (S p)
 plusRightSuccCong Z      n o p prf = rewrite plusRightSucc Z n in
                                      rewrite plusRightSucc o p in
-                                     cong S prf
+                                     succCong prf
 plusRightSuccCong (S m') n o p prf = plusLeftSuccCong m' (S n) o p prf
 
 ----------------------

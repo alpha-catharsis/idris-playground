@@ -218,5 +218,5 @@ LTEtoLTOrEq : (m, n : Nat) -> LTE m n -> Either (m = n) (LT m n)
 LTEtoLTOrEq Z      Z      LTEZero       = Left Refl
 LTEtoLTOrEq Z      (S m') LTEZero       = Right LTZero
 LTEtoLTOrEq (S m') (S n') (LTESucc prf) = case LTEtoLTOrEq m' n' prf of
-  Left eqPrf  => Left (cong S eqPrf)
+  Left eqPrf  => Left (succCong eqPrf)
   Right ltPrf => Right (LTSucc ltPrf)

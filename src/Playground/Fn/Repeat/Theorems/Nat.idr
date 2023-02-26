@@ -16,6 +16,7 @@ import Builtin
 
 import Playground.Basics
 import Playground.Data.Nat.Nat
+import Playground.Data.Nat.Theorems.Succ
 import Playground.Fn.Repeat.Repeat
 import Playground.Fn.Repeat.Theorems.Repeat
 
@@ -28,4 +29,4 @@ public export
 repeatSuccOnZero : (n : Nat) -> repeat S n Z = n
 repeatSuccOnZero Z      = Refl
 repeatSuccOnZero (S n') = rewrite repeatUnfoldOutside S n' Z
-                          in cong S (repeatSuccOnZero n')
+                          in succCong (repeatSuccOnZero n')
