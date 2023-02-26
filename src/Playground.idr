@@ -10,4 +10,3 @@ module Playground
 
 import public Playground.Basics
 import public Playground.Data
-import public Playground.Fn

@@ -9,6 +9,8 @@ module Playground.Data.Nat.Prop.Odd
 -------------------
 
 import Playground.Data.Nat.Nat
+import Playground.Data.Nat.Ops.Hyper
+import Playground.Data.Nat.Ops.Succ
 
 ------
 -- Odd
@@ -17,4 +19,4 @@ import Playground.Data.Nat.Nat
 public export
 data Odd : (m : Nat) -> Type where
   OddO : Odd (S Z)
-  OddS : (prf : Odd m) -> Odd (S (S m))
+  OddS : (prf : Odd m) -> Odd (succ (succ m))

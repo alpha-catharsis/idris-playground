@@ -9,6 +9,8 @@ module Playground.Data.Nat.Rel.LTE
 -------------------
 
 import Playground.Data.Nat.Nat
+import Playground.Data.Nat.Ops.Hyper
+import Playground.Data.Nat.Ops.Succ
 
 ------
 -- LTE
@@ -17,4 +19,4 @@ import Playground.Data.Nat.Nat
 public export
 data LTE : (m : Nat) -> (n : Nat) -> Type where
   LTEZero : LTE Z n
-  LTESucc : LTE m n -> LTE (S m) (S n)
+  LTESucc : LTE m n -> LTE (succ m) (succ n)

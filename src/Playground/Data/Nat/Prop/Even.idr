@@ -9,6 +9,8 @@ module Playground.Data.Nat.Prop.Even
 -------------------
 
 import Playground.Data.Nat.Nat
+import Playground.Data.Nat.Ops.Hyper
+import Playground.Data.Nat.Ops.Succ
 
 -------
 -- Even
@@ -17,4 +19,4 @@ import Playground.Data.Nat.Nat
 public export
 data Even : (m : Nat) -> Type where
   EvenZ : Even Z
-  EvenS : (prf : Even m) -> Even (S (S m))
+  EvenS : (prf : Even m) -> Even (succ (succ m))

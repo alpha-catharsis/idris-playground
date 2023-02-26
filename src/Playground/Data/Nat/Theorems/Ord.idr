@@ -19,6 +19,8 @@ import Playground.Data.Nat.Nat
 import Playground.Data.Nat.Rel.LT
 import Playground.Data.Nat.Rel.LTE
 import Playground.Data.Nat.Theorems.Succ
+import Playground.Data.Nat.Ops.Hyper
+import Playground.Data.Nat.Ops.Succ
 
 ----------------------
 -- LT basic properties
@@ -61,40 +63,40 @@ connectedLT (S m') (S n') contra =
 
 %hint
 public export
-bothPrevLT : LT (S m) (S n) -> LT m n
+bothPrevLT : LT (succ m) (succ n) -> LT m n
 bothPrevLT LTZero       impossible
 bothPrevLT (LTSucc prf) = prf
 
 %hint
 public export
-rightNextLT : LT m n -> LT m (S n)
+rightNextLT : LT m n -> LT m (succ n)
 rightNextLT LTZero = LTZero
 rightNextLT (LTSucc prf) = LTSucc (rightNextLT prf)
 
 %hint
 public export
-leftPrevLT : LT (S m) n -> LT m n
+leftPrevLT : LT (succ m) n -> LT m n
 leftPrevLT LTZero       impossible
 leftPrevLT (LTSucc prf) = rightNextLT prf
 
 %hint
 public export
-notBothPrevLT : Not (LT (S m) (S n)) -> Not (LT m n)
+notBothPrevLT : Not (LT (succ m) (succ n)) -> Not (LT m n)
 notBothPrevLT contra prf = contra (LTSucc prf)
 
 %hint
 public export
-notBothNextLT : Not (LT m n) -> Not (LT (S m) (S n))
+notBothNextLT : Not (LT m n) -> Not (LT (succ m) (succ n))
 notBothNextLT contra prf = contra (bothPrevLT prf)
 
 %hint
 public export
-notRightPrevLT : Not (LT m (S n)) -> Not (LT m n)
+notRightPrevLT : Not (LT m (succ n)) -> Not (LT m n)
 notRightPrevLT contra prf = contra (rightNextLT prf)
 
 %hint
 public export
-notLeftNextLT : Not (LT m n) -> Not (LT (S m) n)
+notLeftNextLT : Not (LT m n) -> Not (LT (succ m) n)
 notLeftNextLT contra prf = contra (leftPrevLT prf)
 
 ------------------------
@@ -109,7 +111,7 @@ notLTEq (LTSucc prf) = notLTEq prf
 
 %hint
 public export
-notLeftSuccRightZeroLT : Not (LT (S m) Z)
+notLeftSuccRightZeroLT : Not (LT (succ m) Z)
 notLeftSuccRightZeroLT _ impossible
 
 -----------------------
@@ -151,40 +153,40 @@ stronglyConnectedLTE (S m') (S n') = case stronglyConnectedLTE m' n' of
 
 %hint
 public export
-bothPrevLTE : LTE (S m) (S n) -> LTE m n
+bothPrevLTE : LTE (succ m) (succ n) -> LTE m n
 bothPrevLTE LTEZero       impossible
 bothPrevLTE (LTESucc prf) = prf
 
 %hint
 public export
-rightNextLTE : LTE m n -> LTE m (S n)
+rightNextLTE : LTE m n -> LTE m (succ n)
 rightNextLTE LTEZero = LTEZero
 rightNextLTE (LTESucc prf) = LTESucc (rightNextLTE prf)
 
 %hint
 public export
-leftPrevLTE : LTE (S m) n -> LTE m n
+leftPrevLTE : LTE (succ m) n -> LTE m n
 leftPrevLTE LTEZero       impossible
 leftPrevLTE (LTESucc prf) = rightNextLTE prf
 
 %hint
 public export
-notBothPrevLTE : Not (LTE (S m) (S n)) -> Not (LTE m n)
+notBothPrevLTE : Not (LTE (succ m) (succ n)) -> Not (LTE m n)
 notBothPrevLTE contra prf = contra (LTESucc prf)
 
 %hint
 public export
-notBothNextLTE : Not (LTE m n) -> Not (LTE (S m) (S n))
+notBothNextLTE : Not (LTE m n) -> Not (LTE (succ m) (succ n))
 notBothNextLTE contra prf = contra (bothPrevLTE prf)
 
 %hint
 public export
-notRightPrevLTE : Not (LTE m (S n)) -> Not (LTE m n)
+notRightPrevLTE : Not (LTE m (succ n)) -> Not (LTE m n)
 notRightPrevLTE contra prf = contra (rightNextLTE prf)
 
 %hint
 public export
-notLeftNextLTE : Not (LTE m n) -> Not (LTE (S m) n)
+notLeftNextLTE : Not (LTE m n) -> Not (LTE (succ m) n)
 notLeftNextLTE contra prf = contra (leftPrevLTE prf)
 
 --------------------------
@@ -193,13 +195,13 @@ notLeftNextLTE contra prf = contra (leftPrevLTE prf)
 
 %hint
 public export
-notLTELeftSucc : Not (LTE (S m) m)
+notLTELeftSucc : Not (LTE (succ m) m)
 notLTELeftSucc LTEZero       impossible
 notLTELeftSucc (LTESucc prf) = notLTELeftSucc prf
 
 %hint
 public export
-notLeftSuccRightZeroLTE : Not (LTE (S m) Z)
+notLeftSuccRightZeroLTE : Not (LTE (succ m) Z)
 notLeftSuccRightZeroLTE _ impossible
 
 -------------------

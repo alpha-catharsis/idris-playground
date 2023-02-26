@@ -16,6 +16,8 @@ import Builtin
 
 import Playground.Basics
 import Playground.Data.Nat.Nat
+import Playground.Data.Nat.Ops.Hyper
+import Playground.Data.Nat.Ops.Succ
 import Playground.Data.Nat.Prop.Even
 import Playground.Data.Nat.Prop.Odd
 
@@ -25,23 +27,22 @@ import Playground.Data.Nat.Prop.Odd
 
 %hint
 public export
-succCong : m = n -> S m = S n
-succCong prf = cong S prf
+succCong : m = n -> succ m = succ n
+succCong prf = cong succ prf
 
 %hint
 public export
-succInjective : S m = S n -> m = n
+succInjective : succ m = succ n -> m = n
 succInjective Refl = Refl
 
-
 %hint
 public export
-noSuccCong : Not (m = n) -> Not (S m = S n)
+noSuccCong : Not (m = n) -> Not (succ m = succ n)
 noSuccCong contra prf = contra (succInjective prf)
 
 %hint
 public export
-noSuccInjective : Not (S m = S n) -> Not (m = n)
+noSuccInjective : Not (succ m = succ n) -> Not (m = n)
 noSuccInjective contra prf = contra (succCong prf)
 
 ----------------
@@ -50,12 +51,12 @@ noSuccInjective contra prf = contra (succCong prf)
 
 %hint
 public export
-succEvenIsOdd : Even m -> Odd (S m)
+succEvenIsOdd : Even m -> Odd (succ m)
 succEvenIsOdd EvenZ       = OddO
 succEvenIsOdd (EvenS prf) = OddS (succEvenIsOdd prf)
 
 %hint
 public export
-succOddIsEven : Odd m -> Even (S m)
+succOddIsEven : Odd m -> Even (succ m)
 succOddIsEven OddO       = EvenS EvenZ
 succOddIsEven (OddS prf) = EvenS (succOddIsEven prf)

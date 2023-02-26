@@ -16,6 +16,8 @@ import Builtin
 
 import Playground.Basics
 import Playground.Data.Nat.Nat
+import Playground.Data.Nat.Ops.Hyper
+import Playground.Data.Nat.Ops.Succ
 import Playground.Data.Nat.Prop.Even
 import Playground.Data.Nat.Prop.Odd
 
@@ -25,7 +27,7 @@ import Playground.Data.Nat.Prop.Odd
 
 %hint
 public export
-notEvenSuccSucc : Not (Even m) -> Not (Even (S (S m)))
+notEvenSuccSucc : Not (Even m) -> Not (Even (succ (succ m)))
 notEvenSuccSucc contra (EvenS prf) = contra prf
 
 --------------------------
@@ -34,7 +36,7 @@ notEvenSuccSucc contra (EvenS prf) = contra prf
 
 %hint
 public export
-notEvenOne : Not (Even (S Z))
+notEvenOne : Not (Even (succ Z))
 notEvenOne _ impossible
 
 ---------------------
@@ -43,7 +45,7 @@ notEvenOne _ impossible
 
 %hint
 public export
-notOddSuccSucc : Not (Odd m) -> Not (Odd (S (S m)))
+notOddSuccSucc : Not (Odd m) -> Not (Odd (succ (succ m)))
 notOddSuccSucc contra (OddS prf) = contra prf
 
 -------------------------

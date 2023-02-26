@@ -9,8 +9,7 @@ module Playground.Data.Nat.Ops.Mult
 -------------------
 
 import Playground.Data.Nat.Nat
-import Playground.Data.Nat.Ops.Plus
-import Playground.Fn.Repeat.Repeat
+import Playground.Data.Nat.Ops.Hyper
 
 -----------------
 -- mult operation
@@ -18,4 +17,4 @@ import Playground.Fn.Repeat.Repeat
 
 public export
 mult : Nat -> Nat -> Nat
-mult m n = repeat (plus m) n Z
+mult m n = hyper (S (S Z)) m n
