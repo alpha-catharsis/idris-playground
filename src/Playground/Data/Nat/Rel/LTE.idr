@@ -15,6 +15,6 @@ import Playground.Data.Nat.Nat
 ------
 
 public export
-data LTE : (n : Nat) -> (m : Nat) -> Type where
-  LTEZero : LTE Z m
-  LTESucc : LTE n m -> LTE (S n) (S m)
+data LTE : (m : Nat) -> (n : Nat) -> Type where
+  LTEZero : LTE Z n
+  LTESucc : LTE m n -> LTE (S m) (S n)

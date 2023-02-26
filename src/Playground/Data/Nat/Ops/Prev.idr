@@ -16,6 +16,6 @@ import Playground.Data.Nat.Rel.LT
 -----------------
 
 -- public export
--- prev : (n : Nat) -> {auto 0 prfLT : LT Z n} -> Nat
+-- prev : (m : Nat) -> {auto 0 prfLT : LT Z m} -> Nat
 -- prev Z      impossible
--- prev (S n') = n'
+-- prev (S m') = m'

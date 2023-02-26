@@ -19,9 +19,9 @@ import Playground.Data.Nat.Theorems.EvenOdd
 -----------------
 
 public export
-decEven : (n : Nat) -> Dec (Even n)
+decEven : (m : Nat) -> Dec (Even m)
 decEven Z         = Yes EvenZ
 decEven (S Z)     = No (oddNotEven OddO)
-decEven (S (S n)) = case decEven n of
+decEven (S (S m)) = case decEven m of
   No contra => No (notEvenSuccSucc contra)
   Yes prf   => Yes (EvenS prf)

@@ -23,7 +23,7 @@ import Playground.Data.Nat.Nat
 
 public export
 ind : (f : Nat -> Type) -> (prfZ : f Z) ->
-      (prfS : (n : Nat) -> f n -> f (S n)) ->
-      (n : Nat) -> f n
+      (prfS : (m : Nat) -> f m -> f (S m)) ->
+      (m : Nat) -> f m
 ind f prfZ prfS Z      = prfZ
-ind f prfZ prfS (S n') = prfS n' (ind f prfZ prfS n')
+ind f prfZ prfS (S m') = prfS m' (ind f prfZ prfS m')

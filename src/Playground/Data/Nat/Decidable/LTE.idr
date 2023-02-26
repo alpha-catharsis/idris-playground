@@ -18,9 +18,9 @@ import Playground.Data.Nat.Theorems.Ord
 ---------------
 
 public export
-decLTE : (n : Nat) -> (m : Nat) -> Dec (LTE n m)
-decLTE Z      m      = Yes LTEZero
-decLTE (S n') Z      = No notLeftSuccRightZeroLTE
-decLTE (S n') (S m') = case decLTE n' m' of
+decLTE : (m : Nat) -> (n : Nat) -> Dec (LTE m n)
+decLTE Z      n      = Yes LTEZero
+decLTE (S m') Z      = No notLeftSuccRightZeroLTE
+decLTE (S m') (S n') = case decLTE m' n' of
   No contra => No (notBothNextLTE contra)
   Yes prf   => Yes (LTESucc prf)

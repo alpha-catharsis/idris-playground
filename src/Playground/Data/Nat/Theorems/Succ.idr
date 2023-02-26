@@ -25,12 +25,12 @@ import Playground.Data.Nat.Prop.Odd
 
 %hint
 public export
-succInjective : S n = S m -> n = m
+succInjective : S m = S n -> m = n
 succInjective Refl = Refl
 
 %hint
 public export
-noSuccInjective : Not (S n = S m) -> Not (n = m)
+noSuccInjective : Not (S m = S n) -> Not (m = n)
 noSuccInjective contra prf = contra (cong S prf)
 
 ------------
@@ -39,12 +39,12 @@ noSuccInjective contra prf = contra (cong S prf)
 
 %hint
 public export
-succCong : n = m -> S n = S m
+succCong : m = n -> S m = S n
 succCong prf = cong S prf
 
 %hint
 public export
-noSuccCong : Not (n = m) -> Not (S n = S m)
+noSuccCong : Not (m = n) -> Not (S m = S n)
 noSuccCong contra prf = contra (succInjective prf)
 
 ----------------
@@ -53,12 +53,12 @@ noSuccCong contra prf = contra (succInjective prf)
 
 %hint
 public export
-succEvenIsOdd : Even n -> Odd (S n)
+succEvenIsOdd : Even m -> Odd (S m)
 succEvenIsOdd EvenZ       = OddO
 succEvenIsOdd (EvenS prf) = OddS (succEvenIsOdd prf)
 
 %hint
 public export
-succOddIsEven : Odd n -> Even (S n)
+succOddIsEven : Odd m -> Even (S m)
 succOddIsEven OddO       = EvenS EvenZ
 succOddIsEven (OddS prf) = EvenS (succOddIsEven prf)

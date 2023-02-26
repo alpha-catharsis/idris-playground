@@ -18,10 +18,10 @@ import Playground.Data.Nat.Theorems.Ord
 ---------------
 
 public export
-decLT : (n : Nat) -> (m : Nat) -> Dec (LT n m)
+decLT : (m : Nat) -> (n : Nat) -> Dec (LT m n)
 decLT Z      Z      = No notLTEq
-decLT Z      (S m') = Yes LTZero
-decLT (S n') Z      = No notLeftSuccRightZeroLT
-decLT (S n') (S m') = case decLT n' m' of
+decLT Z      (S n') = Yes LTZero
+decLT (S m') Z      = No notLeftSuccRightZeroLT
+decLT (S m') (S n') = case decLT m' n' of
   No contra => No (notBothNextLT contra)
   Yes prf   => Yes (LTSucc prf)

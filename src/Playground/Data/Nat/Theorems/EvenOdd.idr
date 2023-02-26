@@ -25,7 +25,7 @@ import Playground.Data.Nat.Prop.Odd
 
 %hint
 public export
-notEvenSuccSucc : Not (Even n) -> Not (Even (S (S n)))
+notEvenSuccSucc : Not (Even m) -> Not (Even (S (S m)))
 notEvenSuccSucc contra (EvenS prf) = contra prf
 
 --------------------------
@@ -43,7 +43,7 @@ notEvenOne _ impossible
 
 %hint
 public export
-notOddSuccSucc : Not (Odd n) -> Not (Odd (S (S n)))
+notOddSuccSucc : Not (Odd m) -> Not (Odd (S (S m)))
 notOddSuccSucc contra (OddS prf) = contra prf
 
 -------------------------
@@ -61,12 +61,12 @@ notOddZero _ impossible
 
 %hint
 public export
-evenNotOdd : Even n -> Not (Odd n)
+evenNotOdd : Even m -> Not (Odd m)
 evenNotOdd EvenZ       = notOddZero
 evenNotOdd (EvenS prf) = notOddSuccSucc (evenNotOdd prf)
 
 %hint
 public export
-oddNotEven : Odd n -> Not (Even n)
+oddNotEven : Odd m -> Not (Even m)
 oddNotEven OddO       = notEvenOne
 oddNotEven (OddS prf) = notEvenSuccSucc (oddNotEven prf)

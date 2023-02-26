@@ -15,6 +15,6 @@ import Playground.Data.Nat.Nat
 -------
 
 public export
-data Even : (n : Nat) -> Type where
+data Even : (m : Nat) -> Type where
   EvenZ : Even Z
-  EvenS : (prf : Even n) -> Even (S (S n))
+  EvenS : (prf : Even m) -> Even (S (S m))

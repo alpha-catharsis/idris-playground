@@ -15,6 +15,6 @@ import Playground.Data.Nat.Nat
 ------
 
 public export
-data Odd : (n : Nat) -> Type where
+data Odd : (m : Nat) -> Type where
   OddO : Odd (S Z)
-  OddS : (prf : Odd n) -> Odd (S (S n))
+  OddS : (prf : Odd m) -> Odd (S (S m))

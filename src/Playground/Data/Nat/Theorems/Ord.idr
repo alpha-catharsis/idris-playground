@@ -26,32 +26,32 @@ import Playground.Data.Nat.Theorems.Succ
 
 %hint
 public export
-irreflexiveLT : (n : Nat) -> Not (LT n n)
-irreflexiveLT Z LTZero impossible
-irreflexiveLT (S n) (LTSucc prf) = irreflexiveLT n prf
+irreflexiveLT : (m : Nat) -> Not (LT m m)
+irreflexiveLT Z      LTZero       impossible
+irreflexiveLT (S m') (LTSucc prf) = irreflexiveLT m' prf
 
 %hint
 public export
-asymmetricLT : (n, m : Nat) -> LT n m -> Not (LT m n)
+asymmetricLT : (m, n : Nat) -> LT m n -> Not (LT n m)
 asymmetricLT _      _      LTZero       LTZero         impossible
-asymmetricLT (S n') (S m') (LTSucc lprf) (LTSucc rprf) =
-  asymmetricLT n' m' lprf rprf
+asymmetricLT (S m') (S n') (LTSucc lprf) (LTSucc rprf) =
+  asymmetricLT m' n' lprf rprf
 
 %hint
 public export
-transitiveLT : (n, m, o : Nat) -> LT n m -> LT m o -> LT n o
+transitiveLT : (m, n, o : Nat) -> LT m n -> LT n o -> LT m o
 transitiveLT _      _      _      LTZero        (LTSucc _)    = LTZero
-transitiveLT (S n') (S m') (S o') (LTSucc lprf) (LTSucc rprf) =
-  LTSucc (transitiveLT n' m' o' lprf rprf)
+transitiveLT (S m') (S n') (S o') (LTSucc lprf) (LTSucc rprf) =
+  LTSucc (transitiveLT m' n' o' lprf rprf)
 
 %hint
 public export
-connectedLT : (n, m : Nat) -> Not (n = m) -> Either (LT n m) (LT m n)
+connectedLT : (m, n : Nat) -> Not (m = n) -> Either (LT m n) (LT n m)
 connectedLT Z      Z      contra = void (contra Refl)
-connectedLT Z      (S m') _      = Left LTZero
-connectedLT (S n') Z      _      = Right LTZero
-connectedLT (S n') (S m') contra =
-  case connectedLT n' m' (noSuccInjective contra) of
+connectedLT Z      (S n') _      = Left LTZero
+connectedLT (S m') Z      _      = Right LTZero
+connectedLT (S m') (S n') contra =
+  case connectedLT m' n' (noSuccInjective contra) of
     Left lprf  => Left (LTSucc lprf)
     Right rprf => Right (LTSucc rprf)
 
@@ -61,40 +61,40 @@ connectedLT (S n') (S m') contra =
 
 %hint
 public export
-bothPrevLT : LT (S n) (S m) -> LT n m
+bothPrevLT : LT (S m) (S n) -> LT m n
 bothPrevLT LTZero       impossible
 bothPrevLT (LTSucc prf) = prf
 
 %hint
 public export
-rightNextLT : LT n m -> LT n (S m)
+rightNextLT : LT m n -> LT m (S n)
 rightNextLT LTZero = LTZero
 rightNextLT (LTSucc prf) = LTSucc (rightNextLT prf)
 
 %hint
 public export
-leftPrevLT : LT (S n) m -> LT n m
+leftPrevLT : LT (S m) n -> LT m n
 leftPrevLT LTZero       impossible
 leftPrevLT (LTSucc prf) = rightNextLT prf
 
 %hint
 public export
-notBothPrevLT : Not (LT (S n) (S m)) -> Not (LT n m)
+notBothPrevLT : Not (LT (S m) (S n)) -> Not (LT m n)
 notBothPrevLT contra prf = contra (LTSucc prf)
 
 %hint
 public export
-notBothNextLT : Not (LT n m) -> Not (LT (S n) (S m))
+notBothNextLT : Not (LT m n) -> Not (LT (S m) (S n))
 notBothNextLT contra prf = contra (bothPrevLT prf)
 
 %hint
 public export
-notRightPrevLT : Not (LT n (S m)) -> Not (LT n m)
+notRightPrevLT : Not (LT m (S n)) -> Not (LT m n)
 notRightPrevLT contra prf = contra (rightNextLT prf)
 
 %hint
 public export
-notLeftNextLT : Not (LT n m) -> Not (LT (S n) m)
+notLeftNextLT : Not (LT m n) -> Not (LT (S m) n)
 notLeftNextLT contra prf = contra (leftPrevLT prf)
 
 ------------------------
@@ -103,13 +103,13 @@ notLeftNextLT contra prf = contra (leftPrevLT prf)
 
 %hint
 public export
-notLTEq : Not (LT n n)
+notLTEq : Not (LT m m)
 notLTEq LTZero impossible
 notLTEq (LTSucc prf) = notLTEq prf
 
 %hint
 public export
-notLeftSuccRightZeroLT : Not (LT (S n) Z)
+notLeftSuccRightZeroLT : Not (LT (S m) Z)
 notLeftSuccRightZeroLT _ impossible
 
 -----------------------
@@ -118,30 +118,30 @@ notLeftSuccRightZeroLT _ impossible
 
 %hint
 public export
-reflexiveLTE : (n : Nat) -> LTE n n
+reflexiveLTE : (m : Nat) -> LTE m m
 reflexiveLTE Z      = LTEZero
-reflexiveLTE (S n') = LTESucc (reflexiveLTE n')
+reflexiveLTE (S m') = LTESucc (reflexiveLTE m')
 
 %hint
 public export
-antisymmetricLTE : (n, m : Nat) -> LTE n m -> LTE m n -> n = m
+antisymmetricLTE : (m, n : Nat) -> LTE m n -> LTE n m -> m = n
 antisymmetricLTE _      _      LTEZero        LTEZero        = Refl
-antisymmetricLTE (S n') (S m') (LTESucc lprf) (LTESucc rprf) =
-  succCong (antisymmetricLTE n' m' lprf rprf)
+antisymmetricLTE (S m') (S n') (LTESucc lprf) (LTESucc rprf) =
+  succCong (antisymmetricLTE m' n' lprf rprf)
 
 %hint
 public export
-transitiveLTE : (n, m, o : Nat) -> LTE n m -> LTE m o -> LTE n o
+transitiveLTE : (m, n, o : Nat) -> LTE m n -> LTE n o -> LTE m o
 transitiveLTE _      _      _      LTEZero        _              = LTEZero
-transitiveLTE (S n') (S m') (S o') (LTESucc lprf) (LTESucc rprf) =
-  LTESucc (transitiveLTE n' m' o' lprf rprf)
+transitiveLTE (S m') (S n') (S o') (LTESucc lprf) (LTESucc rprf) =
+  LTESucc (transitiveLTE m' n' o' lprf rprf)
 
 %hint
 public export
-stronglyConnectedLTE : (n, m : Nat) -> Either (LTE n m) (LTE m n)
+stronglyConnectedLTE : (m, n : Nat) -> Either (LTE m n) (LTE n m)
 stronglyConnectedLTE Z _           = Left LTEZero
 stronglyConnectedLTE _ Z           = Right LTEZero
-stronglyConnectedLTE (S n') (S m') = case stronglyConnectedLTE n' m' of
+stronglyConnectedLTE (S m') (S n') = case stronglyConnectedLTE m' n' of
   Left lprf  => Left (LTESucc lprf)
   Right rprf => Right (LTESucc rprf)
 
@@ -151,40 +151,40 @@ stronglyConnectedLTE (S n') (S m') = case stronglyConnectedLTE n' m' of
 
 %hint
 public export
-bothPrevLTE : LTE (S n) (S m) -> LTE n m
+bothPrevLTE : LTE (S m) (S n) -> LTE m n
 bothPrevLTE LTEZero       impossible
 bothPrevLTE (LTESucc prf) = prf
 
 %hint
 public export
-rightNextLTE : LTE n m -> LTE n (S m)
+rightNextLTE : LTE m n -> LTE m (S n)
 rightNextLTE LTEZero = LTEZero
 rightNextLTE (LTESucc prf) = LTESucc (rightNextLTE prf)
 
 %hint
 public export
-leftPrevLTE : LTE (S n) m -> LTE n m
+leftPrevLTE : LTE (S m) n -> LTE m n
 leftPrevLTE LTEZero       impossible
 leftPrevLTE (LTESucc prf) = rightNextLTE prf
 
 %hint
 public export
-notBothPrevLTE : Not (LTE (S n) (S m)) -> Not (LTE n m)
+notBothPrevLTE : Not (LTE (S m) (S n)) -> Not (LTE m n)
 notBothPrevLTE contra prf = contra (LTESucc prf)
 
 %hint
 public export
-notBothNextLTE : Not (LTE n m) -> Not (LTE (S n) (S m))
+notBothNextLTE : Not (LTE m n) -> Not (LTE (S m) (S n))
 notBothNextLTE contra prf = contra (bothPrevLTE prf)
 
 %hint
 public export
-notRightPrevLTE : Not (LTE n (S m)) -> Not (LTE n m)
+notRightPrevLTE : Not (LTE m (S n)) -> Not (LTE m n)
 notRightPrevLTE contra prf = contra (rightNextLTE prf)
 
 %hint
 public export
-notLeftNextLTE : Not (LTE n m) -> Not (LTE (S n) m)
+notLeftNextLTE : Not (LTE m n) -> Not (LTE (S m) n)
 notLeftNextLTE contra prf = contra (leftPrevLTE prf)
 
 --------------------------
@@ -193,13 +193,13 @@ notLeftNextLTE contra prf = contra (leftPrevLTE prf)
 
 %hint
 public export
-notLTELeftSucc : Not (LTE (S n) n)
+notLTELeftSucc : Not (LTE (S m) m)
 notLTELeftSucc LTEZero       impossible
 notLTELeftSucc (LTESucc prf) = notLTELeftSucc prf
 
 %hint
 public export
-notLeftSuccRightZeroLTE : Not (LTE (S n) Z)
+notLeftSuccRightZeroLTE : Not (LTE (S m) Z)
 notLeftSuccRightZeroLTE _ impossible
 
 -------------------
@@ -208,15 +208,15 @@ notLeftSuccRightZeroLTE _ impossible
 
 %hint
 public export
-LTtoLTE : LT n m -> LTE n m
+LTtoLTE : LT m n -> LTE m n
 LTtoLTE LTZero       = LTEZero
 LTtoLTE (LTSucc prf) = LTESucc (LTtoLTE prf)
 
 %hint
 public export
-LTEtoLTOrEq : (n : Nat) -> (m : Nat) -> LTE n m -> Either (n = m) (LT n m)
+LTEtoLTOrEq : (m, n : Nat) -> LTE m n -> Either (m = n) (LT m n)
 LTEtoLTOrEq Z      Z      LTEZero       = Left Refl
 LTEtoLTOrEq Z      (S m') LTEZero       = Right LTZero
-LTEtoLTOrEq (S n') (S m') (LTESucc prf) = case LTEtoLTOrEq n' m' prf of
+LTEtoLTOrEq (S m') (S n') (LTESucc prf) = case LTEtoLTOrEq m' n' prf of
   Left eqPrf  => Left (cong S eqPrf)
   Right ltPrf => Right (LTSucc ltPrf)

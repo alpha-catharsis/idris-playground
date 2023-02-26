@@ -17,4 +17,4 @@ import Playground.Fn.Repeat.Repeat
 
 public export
 plus : Nat -> Nat -> Nat
-plus n = repeat S n
+plus m = repeat S m

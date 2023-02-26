@@ -34,12 +34,12 @@ import Playground.Fn.Repeat.Theorems.Repeat
 
 %hint
 public export
-plusLeftZeroNeutral : (m : Nat) -> plus Z m = m
+plusLeftZeroNeutral : (n : Nat) -> plus Z n = n
 plusLeftZeroNeutral _ = repeatZeroId S
 
 %hint
 public export
-plusRightZeroNeutral : (n : Nat) -> plus n Z = n
+plusRightZeroNeutral : (m : Nat) -> plus m Z = m
 plusRightZeroNeutral = repeatSuccOnZero
 
 ------------
@@ -48,14 +48,14 @@ plusRightZeroNeutral = repeatSuccOnZero
 
 %hint
 public export
-plusLeftSucc : (n, m : Nat) -> plus (S n) m = S (plus n m)
+plusLeftSucc : (m, n : Nat) -> plus (S m) n = S (plus m n)
 plusLeftSucc = repeatUnfoldOutside S
 
 %hint
 public export
-plusRightSucc : (n, m : Nat) -> plus n (S m) = S (plus n m)
-plusRightSucc n m = rewrite sym (repeatOrdInvariant S n m)
-                    in repeatUnfoldInside S n m
+plusRightSucc : (m, n : Nat) -> plus m (S n) = S (plus m n)
+plusRightSucc m n = rewrite sym (repeatOrdInvariant S m n)
+                    in repeatUnfoldInside S m n
 
 -------------------
 -- plus commutative
@@ -63,9 +63,9 @@ plusRightSucc n m = rewrite sym (repeatOrdInvariant S n m)
 
 %hint
 public export
-plusCommutative : (n, m : Nat) -> plus n m = plus m n
-plusCommutative Z      m = rewrite plusRightZeroNeutral m in Refl
-plusCommutative (S n') m = plusCommutative n' (S m)
+plusCommutative : (m, n : Nat) -> plus m n = plus n m
+plusCommutative Z      n = rewrite plusRightZeroNeutral n in Refl
+plusCommutative (S m') n = plusCommutative m' (S n)
 
 -------------------
 -- plus associative
@@ -73,11 +73,11 @@ plusCommutative (S n') m = plusCommutative n' (S m)
 
 %hint
 public export
-plusAssociative : (n, m, o : Nat) -> plus n (plus m o) = plus (plus n m) o
-plusAssociative Z      m o = Refl
-plusAssociative (S n') m o = rewrite repeatUnfoldInside S n' (repeat S m o)
-                             in rewrite sym (repeatOrdInvariant S m o)
-                             in plusAssociative n' (S m) o
+plusAssociative : (m, n, o : Nat) -> plus m (plus n o) = plus (plus m n) o
+plusAssociative Z      n o = Refl
+plusAssociative (S m') n o = rewrite repeatUnfoldInside S m' (repeat S n o)
+                             in rewrite sym (repeatOrdInvariant S n o)
+                             in plusAssociative m' (S n) o
 
 ----------------
 -- plus constant
@@ -85,12 +85,12 @@ plusAssociative (S n') m o = rewrite repeatUnfoldInside S n' (repeat S m o)
 
 %hint
 public export
-plusLeftConstant : (n, m, c : Nat) -> (prf : n = m) -> plus c n = plus c m
+plusLeftConstant : (m, n, c : Nat) -> (prf : m = n) -> plus c m = plus c n
 plusLeftConstant _ _ _ Refl = Refl
 
 %hint
 public export
-plusRightConstant : (n, m, c : Nat) -> (prf : n = m) -> plus n c = plus m c
+plusRightConstant : (m, n, c : Nat) -> (prf : m = n) -> plus m c = plus n c
 plusRightConstant _ _ _ Refl = Refl
 
 -----------
@@ -104,8 +104,8 @@ plusLeftOneSucc _ = Refl
 
 %hint
 public export
-plusRightOneSucc : (n : Nat) -> plus n (S Z) = S n
-plusRightOneSucc n = repeatSuccOnZero (S n)
+plusRightOneSucc : (m : Nat) -> plus m (S Z) = S m
+plusRightOneSucc m = repeatSuccOnZero (S m)
 
 -----------------
 -- plus succ succ
@@ -113,15 +113,15 @@ plusRightOneSucc n = repeatSuccOnZero (S n)
 
 %hint
 public export
-plusLeftSuccSucc : (n, m, o : Nat) -> plus n m = o -> plus (S n) m = S o
+plusLeftSuccSucc : (m, n, o : Nat) -> plus m n = o -> plus (S m) n = S o
 plusLeftSuccSucc Z      _ _ prf = cong S prf
-plusLeftSuccSucc (S n') m o prf = plusLeftSuccSucc n' (S m) o prf
+plusLeftSuccSucc (S m') n o prf = plusLeftSuccSucc m' (S n) o prf
 
 %hint
 public export
-plusRightSuccSucc : (n, m, o : Nat) -> plus n m = o -> plus n (S m) = S o
+plusRightSuccSucc : (m, n, o : Nat) -> plus m n = o -> plus m (S n) = S o
 plusRightSuccSucc Z      _ _ prf = cong S prf
-plusRightSuccSucc (S n') m o prf = plusRightSuccSucc n' (S m) o prf
+plusRightSuccSucc (S m') n o prf = plusRightSuccSucc m' (S n) o prf
 
 -----------------
 -- plus succ cong
@@ -129,21 +129,21 @@ plusRightSuccSucc (S n') m o prf = plusRightSuccSucc n' (S m) o prf
 
 %hint
 public export
-plusLeftSuccCong : (n, m, o, p : Nat) -> plus n m = plus o p ->
-                   plus (S n) m = plus (S o) p
-plusLeftSuccCong Z      m o p prf = rewrite plusLeftSucc Z m in
+plusLeftSuccCong : (m, n, o, p : Nat) -> plus m n = plus o p ->
+                   plus (S m) n = plus (S o) p
+plusLeftSuccCong Z      n o p prf = rewrite plusLeftSucc Z n in
                                     rewrite plusLeftSucc o p in
                                     cong S prf
-plusLeftSuccCong (S n') m o p prf = plusLeftSuccCong n' (S m) o p prf
+plusLeftSuccCong (S m') n o p prf = plusLeftSuccCong m' (S n) o p prf
 
 %hint
 public export
-plusRightSuccCong : (n, m, o, p : Nat) -> plus n m = plus o p ->
-                    plus n (S m) = plus o (S p)
-plusRightSuccCong Z      m o p prf = rewrite plusRightSucc Z m in
+plusRightSuccCong : (m, n, o, p : Nat) -> plus m n = plus o p ->
+                    plus m (S n) = plus o (S p)
+plusRightSuccCong Z      n o p prf = rewrite plusRightSucc Z n in
                                      rewrite plusRightSucc o p in
                                      cong S prf
-plusRightSuccCong (S n') m o p prf = plusLeftSuccCong n' (S m) o p prf
+plusRightSuccCong (S m') n o p prf = plusLeftSuccCong m' (S n) o p prf
 
 ----------------------
 -- plus succ injective
@@ -151,23 +151,23 @@ plusRightSuccCong (S n') m o p prf = plusLeftSuccCong n' (S m) o p prf
 
 %hint
 public export
-plusLeftSuccInjective : (n, m, o, p : Nat) -> plus (S n) m = plus (S o) p ->
-                        plus n m = plus o p
-plusLeftSuccInjective Z      m o p prf =
-  succInjective (rewrite plusLeftSucc Z m in
+plusLeftSuccInjective : (m, n, o, p : Nat) -> plus (S m) n = plus (S o) p ->
+                        plus m n = plus o p
+plusLeftSuccInjective Z      n o p prf =
+  succInjective (rewrite plusLeftSucc Z n in
                  rewrite sym (plusLeftSucc o p) in prf)
-plusLeftSuccInjective (S n') m o p prf =
-  plusLeftSuccInjective n' (S m) o p prf
+plusLeftSuccInjective (S m') n o p prf =
+  plusLeftSuccInjective m' (S n) o p prf
 
 %hint
 public export
-plusRightSuccInjective : (n, m, o, p : Nat) -> plus n (S m) = plus o (S p) ->
-                         plus n m = plus o p
-plusRightSuccInjective Z      m o p prf =
-  succInjective (rewrite plusRightSucc Z m in
+plusRightSuccInjective : (m, n, o, p : Nat) -> plus m (S n) = plus o (S p) ->
+                         plus m n = plus o p
+plusRightSuccInjective Z      n o p prf =
+  succInjective (rewrite plusRightSucc Z n in
                  rewrite sym (plusRightSucc o p) in prf)
-plusRightSuccInjective (S n') m o p prf =
-  plusRightSuccInjective n' (S m) o p prf
+plusRightSuccInjective (S m') n o p prf =
+  plusRightSuccInjective m' (S n) o p prf
 
 --------------
 -- plus cancel
@@ -175,17 +175,17 @@ plusRightSuccInjective (S n') m o p prf =
 
 %hint
 public export
-plusLeftCancel : (n, m, m' : Nat) -> plus n m = plus n m' -> m = m'
+plusLeftCancel : (m, n, n' : Nat) -> plus m n = plus m n' -> n = n'
 plusLeftCancel Z      _ _  prf = prf
-plusLeftCancel (S n') m m' prf  =
-  plusLeftCancel n' m m' (plusRightSuccInjective n' m n' m' prf)
+plusLeftCancel (S m') n n' prf  =
+  plusLeftCancel m' n n' (plusRightSuccInjective m' n m' n' prf)
 
 %hint
 public export
-plusRightCancel : (n, m, n' : Nat) -> plus n m = plus n' m -> n = n'
-plusRightCancel n m n' prf = plusLeftCancel m n n'
-  (rewrite plusCommutative m n in
-   rewrite plusCommutative m n' in prf)
+plusRightCancel : (m, n, m' : Nat) -> plus m n = plus m' n -> m = m'
+plusRightCancel m n m' prf = plusLeftCancel n m m'
+  (rewrite plusCommutative n m in
+   rewrite plusCommutative n m' in prf)
 
 ------------------
 -- plus impossible
@@ -193,15 +193,15 @@ plusRightCancel n m n' prf = plusLeftCancel m n n'
 
 %hint
 public export
-noPlusLeftSuccZero : (n, m : Nat) -> Not (plus (S n) m = Z)
-noPlusLeftSuccZero Z m contra impossible
-noPlusLeftSuccZero (S n') m prf = noPlusLeftSuccZero n' (S m) prf
+noPlusLeftSuccZero : (m, n : Nat) -> Not (plus (S m) n = Z)
+noPlusLeftSuccZero Z n contra impossible
+noPlusLeftSuccZero (S m') n prf = noPlusLeftSuccZero m' (S n) prf
 
 %hint
 public export
-noPlusRightSuccZero : (n, m : Nat) -> Not (plus n (S m) = Z)
-noPlusRightSuccZero n m = rewrite plusCommutative n (S m)
-                          in noPlusLeftSuccZero m n
+noPlusRightSuccZero : (m, n : Nat) -> Not (plus m (S n) = Z)
+noPlusRightSuccZero m n = rewrite plusCommutative m (S n)
+                          in noPlusLeftSuccZero n m
 
 ------------
 -- plus zero
@@ -209,13 +209,13 @@ noPlusRightSuccZero n m = rewrite plusCommutative n (S m)
 
 %hint
 public export
-zeroPlusLeftZero : (n, m : Nat) -> plus n m = Z -> n = Z
+zeroPlusLeftZero : (m, n : Nat) -> plus m n = Z -> m = Z
 zeroPlusLeftZero Z _ Refl = Refl
-zeroPlusLeftZero (S n') m prf = void (noPlusLeftSuccZero n' m prf)
+zeroPlusLeftZero (S m') n prf = void (noPlusLeftSuccZero m' n prf)
 
-zeroPlusRightZero : (n, m : Nat) -> plus n m = Z -> m = Z
+zeroPlusRightZero : (m, n : Nat) -> plus m n = Z -> n = Z
 zeroPlusRightZero _ Z      _   = Refl
-zeroPlusRightZero n (S m') prf = void (noPlusRightSuccZero n m' prf)
+zeroPlusRightZero m (S n') prf = void (noPlusRightSuccZero m n' prf)
 
 ----------------
 -- plus Even/Odd
@@ -223,18 +223,18 @@ zeroPlusRightZero n (S m') prf = void (noPlusRightSuccZero n m' prf)
 
 %hint
 public export
-plusEvenEvenIsEven : Even n -> Even m -> Even (plus n m)
+plusEvenEvenIsEven : Even m -> Even n -> Even (plus m n)
 plusEvenEvenIsEven EvenZ         rprf = rprf
 plusEvenEvenIsEven (EvenS lprf') rprf = plusEvenEvenIsEven lprf' (EvenS rprf)
 
 %hint
 public export
-plusEvenOddIsOdd : Even n -> Odd m -> Odd (plus n m)
+plusEvenOddIsOdd : Even m -> Odd n -> Odd (plus m n)
 plusEvenOddIsOdd EvenZ         rprf = rprf
 plusEvenOddIsOdd (EvenS lprf') rprf = plusEvenOddIsOdd lprf' (OddS rprf)
 
 public export
-plusOddOddIsEven : Odd n -> Odd m -> Even (plus n m)
+plusOddOddIsEven : Odd m -> Odd n -> Even (plus m n)
 plusOddOddIsEven OddO         OddO         = EvenS EvenZ
 plusOddOddIsEven OddO         (OddS rprf') = EvenS (plusOddOddIsEven OddO rprf')
 plusOddOddIsEven (OddS lprf') rprf         = plusOddOddIsEven lprf' (OddS rprf)
@@ -245,27 +245,27 @@ plusOddOddIsEven (OddS lprf') rprf         = plusOddOddIsEven lprf' (OddS rprf)
 
 %hint
 public export
-plusLeftLT : (n, m : Nat) -> LT n (plus n (S m))
+plusLeftLT : (m, n : Nat) -> LT m (plus m (S n))
 plusLeftLT Z      _ = LTZero
-plusLeftLT (S n') m = rewrite plusLeftSucc n' (S m)
-                      in LTSucc (plusLeftLT n' m)
+plusLeftLT (S m') n = rewrite plusLeftSucc m' (S n)
+                      in LTSucc (plusLeftLT m' n)
 
 %hint
 public export
-plusRightLT : (n, m : Nat) -> LT m (plus (S n) m)
-plusRightLT n m = rewrite plusCommutative (S n) m in plusLeftLT m n
+plusRightLT : (m, n : Nat) -> LT n (plus (S m) n)
+plusRightLT m n = rewrite plusCommutative (S m) n in plusLeftLT n m
 
 %hint
 public export
-plusLeftLTE : (n, m : Nat) -> LTE n (plus n m)
+plusLeftLTE : (m, n : Nat) -> LTE m (plus m n)
 plusLeftLTE Z      _ = LTEZero
-plusLeftLTE (S n') m = rewrite plusLeftSucc n' m
-                       in LTESucc (plusLeftLTE n' m)
+plusLeftLTE (S m') n = rewrite plusLeftSucc m' n
+                       in LTESucc (plusLeftLTE m' n)
 
 %hint
 public export
-plusRightLTE : (n, m : Nat) -> LTE m (plus n m)
-plusRightLTE n m = rewrite plusCommutative n m in plusLeftLTE m n
+plusRightLTE : (m, n : Nat) -> LTE n (plus m n)
+plusRightLTE m n = rewrite plusCommutative m n in plusLeftLTE n m
 
 ----------------
 -- plus monotone
@@ -273,20 +273,22 @@ plusRightLTE n m = rewrite plusCommutative n m in plusLeftLTE m n
 
 %hint
 public export
-plusLTEMonotoneRight : (n, m, o : Nat) -> LTE m o -> LTE (plus m n) (plus o n)
-plusLTEMonotoneRight n Z      o      LTEZero       = plusRightLTE o n
-plusLTEMonotoneRight n (S m') (S o') (LTESucc prf) =
-  plusLTEMonotoneRight (S n) m' o' prf
+plusLTEMonotoneRight : (m, n, o : Nat) -> LTE n o -> LTE (plus n m) (plus o m)
+plusLTEMonotoneRight m Z      o      LTEZero       = plusRightLTE o m
+plusLTEMonotoneRight m (S n') (S o') (LTESucc prf) =
+  plusLTEMonotoneRight (S m) n' o' prf
 
 %hint
 public export
-plusLTEMonotoneLeft : (n, m, o : Nat) -> LTE m o -> LTE (plus n m) (plus n o)
-plusLTEMonotoneLeft n m o prf = rewrite plusCommutative n m in
-                                rewrite plusCommutative n o in
-                                plusLTEMonotoneRight n m o prf
+plusLTEMonotoneLeft : (m, n, o : Nat) -> LTE n o -> LTE (plus m n) (plus m o)
+plusLTEMonotoneLeft m n o prf = rewrite plusCommutative m n in
+                                rewrite plusCommutative m o in
+                                plusLTEMonotoneRight m n o prf
 
-plusMonotone : (n, m, o, p : Nat) -> LTE n m -> LTE o p ->
-               LTE (plus n o) (plus m p)
-plusMonotone n m o p lprf rprf = transitiveLTE _ _ _
-  (plusLTEMonotoneLeft n o p rprf)
-  (plusLTEMonotoneRight p n m lprf)
+%hint
+public export
+plusMonotone : (m, n, o, p : Nat) -> LTE m n -> LTE o p ->
+               LTE (plus m o) (plus n p)
+plusMonotone m n o p lprf rprf = transitiveLTE _ _ _
+  (plusLTEMonotoneLeft m o p rprf)
+  (plusLTEMonotoneRight p m n lprf)
