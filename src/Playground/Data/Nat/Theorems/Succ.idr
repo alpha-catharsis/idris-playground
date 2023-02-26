@@ -19,36 +19,25 @@ import Playground.Data.Nat.Nat
 import Playground.Data.Nat.Prop.Even
 import Playground.Data.Nat.Prop.Odd
 
-------------
--- succ cong
-------------
+--------------------------
+-- succ cong and injective
+--------------------------
 
 %hint
 public export
 succCong : m = n -> S m = S n
 succCong prf = cong S prf
 
------------------
--- succ injective
------------------
-
 %hint
 public export
 succInjective : S m = S n -> m = n
 succInjective Refl = Refl
 
----------------
--- no succ cong
----------------
 
 %hint
 public export
 noSuccCong : Not (m = n) -> Not (S m = S n)
 noSuccCong contra prf = contra (succInjective prf)
-
---------------------
--- no succ injective
---------------------
 
 %hint
 public export
