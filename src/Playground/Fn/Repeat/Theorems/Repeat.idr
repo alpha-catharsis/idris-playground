@@ -23,25 +23,25 @@ import Playground.Fn.Repeat.Repeat
 
 %hint
 public export
-repeatZeroId : (0 f : a -> a) -> repeat f Z x = x
+repeatZeroId : (f : a -> a) -> repeat f Z x = x
 repeatZeroId _ = Refl
 
 %hint
 public export
-repeatOrdInvariant : (0 f : a -> a) -> (n : Nat) -> (0 x : a) ->
+repeatOrdInvariant : (f : a -> a) -> (n : Nat) -> (x : a) ->
                      repeat f n (f x) = f (repeat f n x)
 repeatOrdInvariant _ Z      _ = Refl
 repeatOrdInvariant f (S n') x = repeatOrdInvariant f n' (f x)
 
 %hint
 public export
-repeatUnfoldInside : (0 f : a -> a) -> (0 n : Nat) -> (0 x : a) ->
+repeatUnfoldInside : (f : a -> a) -> (n : Nat) -> (x : a) ->
                      repeat f (S n) x = repeat f n (f x)
 repeatUnfoldInside _ _ _ = Refl
 
 %hint
 public export
-repeatUnfoldOutside : (0 f : a -> a) -> (0 n : Nat) -> (0 x : a) ->
+repeatUnfoldOutside : (f : a -> a) -> (n : Nat) -> (x : a) ->
                       repeat f (S n) x = f (repeat f n x)
 repeatUnfoldOutside f n x = rewrite sym (repeatOrdInvariant f n x)
                             in rewrite repeatUnfoldInside f n x in Refl

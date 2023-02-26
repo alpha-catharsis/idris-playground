@@ -16,8 +16,8 @@ import Playground.Data.Nat.Theorems.Ord
 -- minus operation
 -----------------
 
-public export
-minus : (n : Nat) -> (m : Nat) -> {auto 0 prfLTE : LTE m n} -> Nat
-minus Z (S m')      impossible
-minus n Z           = n
-minus (S n') (S m') = minus n' m' {prfLTE=bothPrevLTE prfLTE}
+-- public export
+-- minus : (n : Nat) -> (m : Nat) -> {auto 0 prfLTE : LTE m n} -> Nat
+-- minus Z (S m')      impossible
+-- minus n Z           = n
+-- minus (S n') (S m') = minus n' m' {prfLTE=bothPrevLTE prfLTE}

@@ -23,12 +23,12 @@ import Playground.Data.Nat.Rel.LT
 -- Prev and Succ are inverse of each other
 ------------------------------------------
 
-%hint
-public export
-SuccPrevIsIdentity : prev (S n) = n
-SuccPrevIsIdentity = Refl
+-- %hint
+-- public export
+-- SuccPrevIsIdentity : prev (S n) = n
+-- SuccPrevIsIdentity = Refl
 
-%hint
-public export
-PrevSuccIsIdentity : S (prev (S n)) = S n
-PrevSuccIsIdentity = Refl
+-- %hint
+-- public export
+-- PrevSuccIsIdentity : S (prev (S n)) = S n
+-- PrevSuccIsIdentity = Refl

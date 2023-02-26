@@ -25,8 +25,27 @@ import Playground.Data.Nat.Prop.Odd
 
 %hint
 public export
-succInjective : n = m -> (S n = S m)
+succInjective : S n = S m -> n = m
 succInjective Refl = Refl
+
+%hint
+public export
+noSuccInjective : Not (S n = S m) -> Not (n = m)
+noSuccInjective contra prf = contra (cong S prf)
+
+------------
+-- succ cong
+------------
+
+%hint
+public export
+succCong : n = m -> S n = S m
+succCong prf = cong S prf
+
+%hint
+public export
+noSuccCong : Not (n = m) -> Not (S n = S m)
+noSuccCong contra prf = contra (succInjective prf)
 
 ----------------
 -- succ Even/Odd

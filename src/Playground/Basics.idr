@@ -18,6 +18,17 @@ public export
 Not : Type -> Type
 Not a = a -> Void
 
+-------
+-- Void
+-------
+
+%extern
+prim__void : (0 x : Void) -> a
+
+public export
+void : (0 x : Void) -> a
+void = prim__void
+
 -------------
 -- Congruence
 -------------

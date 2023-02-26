@@ -15,7 +15,7 @@ import Playground.Data.Nat.Rel.LT
 -- plus operation
 -----------------
 
-public export
-prev : (n : Nat) -> {auto 0 prfLT : LT Z n} -> Nat
-prev Z      impossible
-prev (S n') = n'
+-- public export
+-- prev : (n : Nat) -> {auto 0 prfLT : LT Z n} -> Nat
+-- prev Z      impossible
+-- prev (S n') = n'

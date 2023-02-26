@@ -20,6 +20,41 @@ import Playground.Data.Nat.Rel.LT
 import Playground.Data.Nat.Rel.LTE
 import Playground.Data.Nat.Theorems.Succ
 
+----------------------
+-- LT basic properties
+----------------------
+
+%hint
+public export
+irreflexiveLT : (n : Nat) -> Not (LT n n)
+irreflexiveLT Z LTZero impossible
+irreflexiveLT (S n) (LTSucc prf) = irreflexiveLT n prf
+
+%hint
+public export
+asymmetricLT : (n, m : Nat) -> LT n m -> Not (LT m n)
+asymmetricLT _      _      LTZero       LTZero         impossible
+asymmetricLT (S n') (S m') (LTSucc lprf) (LTSucc rprf) =
+  asymmetricLT n' m' lprf rprf
+
+%hint
+public export
+transitiveLT : (n, m, o : Nat) -> LT n m -> LT m o -> LT n o
+transitiveLT _      _      _      LTZero        (LTSucc _)    = LTZero
+transitiveLT (S n') (S m') (S o') (LTSucc lprf) (LTSucc rprf) =
+  LTSucc (transitiveLT n' m' o' lprf rprf)
+
+%hint
+public export
+connectedLT : (n, m : Nat) -> Not (n = m) -> Either (LT n m) (LT m n)
+connectedLT Z      Z      contra = void (contra Refl)
+connectedLT Z      (S m') _      = Left LTZero
+connectedLT (S n') Z      _      = Right LTZero
+connectedLT (S n') (S m') contra =
+  case connectedLT n' m' (noSuccInjective contra) of
+    Left lprf  => Left (LTSucc lprf)
+    Right rprf => Right (LTSucc rprf)
+
 --------------------
 -- LT basic theorems
 --------------------
@@ -76,6 +111,39 @@ notLTEq (LTSucc prf) = notLTEq prf
 public export
 notLeftSuccRightZeroLT : Not (LT (S n) Z)
 notLeftSuccRightZeroLT _ impossible
+
+-----------------------
+-- LTE basic properties
+-----------------------
+
+%hint
+public export
+reflexiveLTE : (n : Nat) -> LTE n n
+reflexiveLTE Z      = LTEZero
+reflexiveLTE (S n') = LTESucc (reflexiveLTE n')
+
+%hint
+public export
+antisymmetricLTE : (n, m : Nat) -> LTE n m -> LTE m n -> n = m
+antisymmetricLTE _      _      LTEZero        LTEZero        = Refl
+antisymmetricLTE (S n') (S m') (LTESucc lprf) (LTESucc rprf) =
+  succCong (antisymmetricLTE n' m' lprf rprf)
+
+%hint
+public export
+transitiveLTE : (n, m, o : Nat) -> LTE n m -> LTE m o -> LTE n o
+transitiveLTE _      _      _      LTEZero        _              = LTEZero
+transitiveLTE (S n') (S m') (S o') (LTESucc lprf) (LTESucc rprf) =
+  LTESucc (transitiveLTE n' m' o' lprf rprf)
+
+%hint
+public export
+stronglyConnectedLTE : (n, m : Nat) -> Either (LTE n m) (LTE m n)
+stronglyConnectedLTE Z _           = Left LTEZero
+stronglyConnectedLTE _ Z           = Right LTEZero
+stronglyConnectedLTE (S n') (S m') = case stronglyConnectedLTE n' m' of
+  Left lprf  => Left (LTESucc lprf)
+  Right rprf => Right (LTESucc rprf)
 
 ---------------------
 -- LTE basic theorems
@@ -150,5 +218,5 @@ LTEtoLTOrEq : (n : Nat) -> (m : Nat) -> LTE n m -> Either (n = m) (LT n m)
 LTEtoLTOrEq Z      Z      LTEZero       = Left Refl
 LTEtoLTOrEq Z      (S m') LTEZero       = Right LTZero
 LTEtoLTOrEq (S n') (S m') (LTESucc prf) = case LTEtoLTOrEq n' m' prf of
-  Left eqPrf  => Left (succInjective eqPrf)
+  Left eqPrf  => Left (cong S eqPrf)
   Right ltPrf => Right (LTSucc ltPrf)
