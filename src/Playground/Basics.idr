@@ -54,3 +54,13 @@ public export
 data Dec : Type -> Type where
   Yes : (prf : prop) -> Dec prop
   No  : (contra : Not prop) -> Dec prop
+
+---------
+-- Subset
+---------
+
+public export
+  record Subset type pred where
+    constructor Element
+    fst : type
+    0 snd : pred fst

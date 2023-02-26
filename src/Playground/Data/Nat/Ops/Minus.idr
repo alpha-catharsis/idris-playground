@@ -11,6 +11,7 @@ module Playground.Data.Nat.Ops.Minus
 import Playground.Data.Nat.Nat
 import Playground.Data.Nat.Rel.LTE
 import Playground.Data.Nat.Theorems.Ord
+import Playground.Fn.Unrepeat.Unrepeat
 
 -----------------
 -- minus operation
