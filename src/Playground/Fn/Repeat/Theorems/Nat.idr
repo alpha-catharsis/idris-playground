@@ -26,7 +26,7 @@ import Playground.Fn.Repeat.Theorems.Repeat
 
 %hint
 public export
-repeatSuccOnZero : (n : Nat) -> repeat S n Z = n
+repeatSuccOnZero : (m : Nat) -> repeat S m Z = m
 repeatSuccOnZero Z      = Refl
-repeatSuccOnZero (S n') = rewrite repeatUnfoldOutside S n' Z
-                          in succCong (repeatSuccOnZero n')
+repeatSuccOnZero (S m') = rewrite repeatUnfoldOutside S m' Z
+                          in succCong (repeatSuccOnZero m')

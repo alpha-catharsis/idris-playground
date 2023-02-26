@@ -15,12 +15,7 @@ import Playground.Fn.Identity.Identity
 -- Repeat function
 ------------------
 
--- public export
--- repeat : (a -> a) -> Nat -> a -> a
--- repeat _ Z     x = x
--- repeat f (S n) x = f (repeat f n x)
-
 public export
 repeat : (a -> a) -> Nat -> a -> a
 repeat _ Z     x = x
-repeat f (S n) x = repeat f n (f x)
+repeat f (S m) x = repeat f m (f x)

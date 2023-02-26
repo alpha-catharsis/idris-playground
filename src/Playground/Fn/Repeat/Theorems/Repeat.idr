@@ -28,20 +28,20 @@ repeatZeroId _ = Refl
 
 %hint
 public export
-repeatOrdInvariant : (f : a -> a) -> (n : Nat) -> (x : a) ->
-                     repeat f n (f x) = f (repeat f n x)
+repeatOrdInvariant : (f : a -> a) -> (m : Nat) -> (x : a) ->
+                     repeat f m (f x) = f (repeat f m x)
 repeatOrdInvariant _ Z      _ = Refl
-repeatOrdInvariant f (S n') x = repeatOrdInvariant f n' (f x)
+repeatOrdInvariant f (S m') x = repeatOrdInvariant f m' (f x)
 
 %hint
 public export
-repeatUnfoldInside : (f : a -> a) -> (n : Nat) -> (x : a) ->
-                     repeat f (S n) x = repeat f n (f x)
+repeatUnfoldInside : (f : a -> a) -> (m : Nat) -> (x : a) ->
+                     repeat f (S m) x = repeat f m (f x)
 repeatUnfoldInside _ _ _ = Refl
 
 %hint
 public export
-repeatUnfoldOutside : (f : a -> a) -> (n : Nat) -> (x : a) ->
-                      repeat f (S n) x = f (repeat f n x)
-repeatUnfoldOutside f n x = rewrite sym (repeatOrdInvariant f n x)
-                            in rewrite repeatUnfoldInside f n x in Refl
+repeatUnfoldOutside : (f : a -> a) -> (m : Nat) -> (x : a) ->
+                      repeat f (S m) x = f (repeat f m x)
+repeatUnfoldOutside f m x = rewrite sym (repeatOrdInvariant f m x)
+                            in rewrite repeatUnfoldInside f m x in Refl
