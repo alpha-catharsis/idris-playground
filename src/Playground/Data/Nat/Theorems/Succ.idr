@@ -21,6 +21,20 @@ import Playground.Data.Nat.Ops.Succ
 import Playground.Data.Nat.Prop.Even
 import Playground.Data.Nat.Prop.Odd
 
+------------------
+-- succ impossible
+------------------
+
+%hint
+public export
+notZeroSucc : Not (Z = S n)
+notZeroSucc _ impossible
+
+%hint
+public export
+notSuccZero : Not (S n = Z)
+notSuccZero _ impossible
+
 --------------------------
 -- succ cong and injective
 --------------------------

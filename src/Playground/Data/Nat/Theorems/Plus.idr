@@ -150,44 +150,51 @@ plusRightSuccCong m (S n') o p prf = rewrite plusRightSucc m n' in
 -- plus succ injective
 ----------------------
 
--- %hint
--- public export
--- plusLeftSuccInjective : (m, n, o, p : Nat) ->
---                         plus (succ m) n = plus (succ o) p ->
---                         plus m n = plus o p
--- plusLeftSuccInjective Z      n o p prf =
---   succInjective (rewrite plusLeftSucc Z n in
---                  rewrite sym (plusLeftSucc o p) in prf)
--- plusLeftSuccInjective (S m') n o p prf =
---   plusLeftSuccInjective m' (S n) o p prf
+%hint
+public export
+plusLeftSuccInjective : (m, n, o, p : Nat) ->
+                        plus (succ m) n = plus (succ o) p ->
+                        plus m n = plus o p
+plusLeftSuccInjective m Z      o Z      prf = succInjective prf
+plusLeftSuccInjective m (S n') o Z      prf =
+  rewrite sym (plusLeftSucc m n') in succInjective prf
+plusLeftSuccInjective m Z      o (S p') prf =
+  rewrite sym (plusLeftSucc o p') in succInjective prf
+plusLeftSuccInjective m (S n') o (S p') prf =
+  succCong (plusLeftSuccInjective m n' o p' (succInjective prf))
 
--- %hint
--- public export
--- plusRightSuccInjective : (m, n, o, p : Nat) -> plus m (S n) = plus o (S p) ->
---                          plus m n = plus o p
--- plusRightSuccInjective Z      n o p prf =
---   succInjective (rewrite plusRightSucc Z n in
---                  rewrite sym (plusRightSucc o p) in prf)
--- plusRightSuccInjective (S m') n o p prf =
---   plusRightSuccInjective m' (S n) o p prf
+%hint
+public export
+plusRightSuccInjective : (m, n, o, p : Nat) ->
+                         plus m (succ n) = plus o (succ p) ->
+                         plus m n = plus o p
+plusRightSuccInjective m Z      o Z      prf = succInjective prf
+plusRightSuccInjective m (S n') o Z      prf =
+  rewrite sym (plusRightSucc m n') in succInjective prf
+plusRightSuccInjective m Z      o (S p') prf =
+  rewrite sym (plusRightSucc o p') in succInjective prf
+plusRightSuccInjective m (S n') o (S p') prf =
+  succCong (plusRightSuccInjective m n' o p' (succInjective prf))
 
 --------------
 -- plus cancel
 --------------
 
--- %hint
--- public export
--- plusLeftCancel : (m, n, n' : Nat) -> plus m n = plus m n' -> n = n'
--- plusLeftCancel Z      _ _  prf = prf
--- plusLeftCancel (S m') n n' prf  =
---   plusLeftCancel m' n n' (plusRightSuccInjective m' n m' n' prf)
+%hint
+public export
+plusLeftCancel : (m, n, o : Nat) -> plus m n = plus m o -> n = o
+plusLeftCancel Z      n o prf = rewrite sym (plusLeftZeroNeutral n) in
+                                rewrite sym (plusLeftZeroNeutral o) in prf
+plusLeftCancel (S m') n o prf = plusLeftCancel m' n o
+  (plusLeftSuccInjective m' n m' o prf)
 
--- %hint
--- public export
--- plusRightCancel : (m, n, m' : Nat) -> plus m n = plus m' n -> m = m'
--- plusRightCancel m n m' prf = plusLeftCancel n m m'
---   (rewrite plusCommutative n m in
---    rewrite plusCommutative n m' in prf)
+%hint
+public export
+plusRightCancel : (m, n, o : Nat) -> plus m n = plus m o -> n = o
+plusRightCancel Z      n o prf = rewrite sym (plusLeftZeroNeutral n) in
+                                rewrite sym (plusLeftZeroNeutral o) in prf
+plusRightCancel (S m') n o prf = plusLeftCancel m' n o
+  (plusLeftSuccInjective m' n m' o prf)
 
 ------------------
 -- plus impossible
@@ -276,24 +283,27 @@ plusRightLTE m n = rewrite plusCommutative m n in plusLeftLTE n m
 -- plus monotone
 ----------------
 
--- %hint
--- public export
--- plusLTEMonotoneRight : (m, n, o : Nat) -> LTE n o -> LTE (plus n m) (plus o m)
--- plusLTEMonotoneRight m Z      o      LTEZero       = plusRightLTE o m
--- plusLTEMonotoneRight m (S n') (S o') (LTESucc prf) =
---   plusLTEMonotoneRight (S m) n' o' prf
+%hint
+public export
+plusLTEMonotoneRight : (m, n, o : Nat) -> LTE n o -> LTE (plus n m) (plus o m)
+plusLTEMonotoneRight m      Z      o      LTEZero       =
+  rewrite plusLeftZeroNeutral m in plusRightLTE o m
+plusLTEMonotoneRight Z      (S n') (S o') (LTESucc prf) = LTESucc prf
+plusLTEMonotoneRight (S m') (S n') (S o') (LTESucc prf) =
+  LTESucc (plusLTEMonotoneRight m' (S n') (S o') (LTESucc prf))
 
--- %hint
--- public export
--- plusLTEMonotoneLeft : (m, n, o : Nat) -> LTE n o -> LTE (plus m n) (plus m o)
--- plusLTEMonotoneLeft m n o prf = rewrite plusCommutative m n in
---                                 rewrite plusCommutative m o in
---                                 plusLTEMonotoneRight m n o prf
 
--- %hint
--- public export
--- plusMonotone : (m, n, o, p : Nat) -> LTE m n -> LTE o p ->
---                LTE (plus m o) (plus n p)
--- plusMonotone m n o p lprf rprf = transitiveLTE _ _ _
---   (plusLTEMonotoneLeft m o p rprf)
---   (plusLTEMonotoneRight p m n lprf)
+%hint
+public export
+plusLTEMonotoneLeft : (m, n, o : Nat) -> LTE n o -> LTE (plus m n) (plus m o)
+plusLTEMonotoneLeft m n o prf = rewrite plusCommutative m n in
+                                rewrite plusCommutative m o in
+                                plusLTEMonotoneRight m n o prf
+
+%hint
+public export
+plusMonotone : (m, n, o, p : Nat) -> LTE m n -> LTE o p ->
+               LTE (plus m o) (plus n p)
+plusMonotone m n o p lprf rprf = transitiveLTE _ _ _
+  (plusLTEMonotoneLeft m o p rprf)
+  (plusLTEMonotoneRight p m n lprf)
