@@ -5,6 +5,12 @@
 module Playground.Data.Nat.Ops.Plus
 
 -------------------
+-- External imports
+-------------------
+
+import Builtin
+
+-------------------
 -- Internal imports
 -------------------
 
