@@ -34,24 +34,22 @@ irreflexiveLT (S m') (LTSucc prf) = irreflexiveLT m' prf
 
 %hint
 public export
-asymmetricLT : (m, n : Nat) -> LT m n -> Not (LT n m)
-asymmetricLT _      _      LTZero       LTZero         impossible
-asymmetricLT (S m') (S n') (LTSucc lprf) (LTSucc rprf) =
-  asymmetricLT m' n' lprf rprf
+asymmetricLT : LT m n -> Not (LT n m)
+asymmetricLT LTZero        LTZero        impossible
+asymmetricLT (LTSucc lprf) (LTSucc rprf) = asymmetricLT lprf rprf
 
 %hint
 public export
-transitiveLT : (m, n, o : Nat) -> LT m n -> LT n o -> LT m o
-transitiveLT _      _      _      LTZero        (LTSucc _)    = LTZero
-transitiveLT (S m') (S n') (S o') (LTSucc lprf) (LTSucc rprf) =
-  LTSucc (transitiveLT m' n' o' lprf rprf)
+transitiveLT : LT m n -> LT n o -> LT m o
+transitiveLT LTZero        (LTSucc _)    = LTZero
+transitiveLT (LTSucc lprf) (LTSucc rprf) = LTSucc (transitiveLT lprf rprf)
 
 %hint
 public export
 connectedLT : (m, n : Nat) -> Not (m = n) -> Either (LT m n) (LT n m)
 connectedLT Z      Z      contra = void (contra Refl)
-connectedLT Z      (S n') _      = Left LTZero
-connectedLT (S m') Z      _      = Right LTZero
+connectedLT Z      (S _)  _      = Left LTZero
+connectedLT (S _)  Z      _      = Right LTZero
 connectedLT (S m') (S n') contra =
   case connectedLT m' n' (noSuccInjective contra) of
     Left lprf  => Left (LTSucc lprf)
@@ -105,14 +103,14 @@ notLeftNextLT contra prf = contra (leftPrevLT prf)
 
 %hint
 public export
-notLTEq : Not (LT m m)
-notLTEq LTZero impossible
-notLTEq (LTSucc prf) = notLTEq prf
+notLTEq : (0 m : Nat) -> Not (LT m m)
+notLTEq _      LTZero       impossible
+notLTEq (S m') (LTSucc prf) = notLTEq m' prf
 
 %hint
 public export
-notLeftSuccRightZeroLT : Not (LT (succ m) Z)
-notLeftSuccRightZeroLT _ impossible
+notLeftSuccRightZeroLT : (0 m : Nat) -> Not (LT (succ m) Z)
+notLeftSuccRightZeroLT _ _ impossible
 
 -----------------------
 -- LTE basic properties
@@ -126,17 +124,17 @@ reflexiveLTE (S m') = LTESucc (reflexiveLTE m')
 
 %hint
 public export
-antisymmetricLTE : (m, n : Nat) -> LTE m n -> LTE n m -> m = n
-antisymmetricLTE _      _      LTEZero        LTEZero        = Refl
-antisymmetricLTE (S m') (S n') (LTESucc lprf) (LTESucc rprf) =
-  succCong (antisymmetricLTE m' n' lprf rprf)
+antisymmetricLTE : LTE m n -> LTE n m -> m = n
+antisymmetricLTE LTEZero        LTEZero        = Refl
+antisymmetricLTE (LTESucc lprf) (LTESucc rprf) =
+  succCong (antisymmetricLTE lprf rprf)
 
 %hint
 public export
-transitiveLTE : (m, n, o : Nat) -> LTE m n -> LTE n o -> LTE m o
-transitiveLTE _      _      _      LTEZero        _              = LTEZero
-transitiveLTE (S m') (S n') (S o') (LTESucc lprf) (LTESucc rprf) =
-  LTESucc (transitiveLTE m' n' o' lprf rprf)
+transitiveLTE : LTE m n -> LTE n o -> LTE m o
+transitiveLTE LTEZero        _              = LTEZero
+transitiveLTE (LTESucc lprf) (LTESucc rprf) =
+  LTESucc (transitiveLTE lprf rprf)
 
 %hint
 public export
@@ -195,14 +193,14 @@ notLeftNextLTE contra prf = contra (leftPrevLTE prf)
 
 %hint
 public export
-notLTELeftSucc : Not (LTE (succ m) m)
-notLTELeftSucc LTEZero       impossible
-notLTELeftSucc (LTESucc prf) = notLTELeftSucc prf
+notLTELeftSucc : (0 m : Nat) -> Not (LTE (succ m) m)
+notLTELeftSucc _      LTEZero       impossible
+notLTELeftSucc (S m') (LTESucc prf) = notLTELeftSucc m' prf
 
 %hint
 public export
-notLeftSuccRightZeroLTE : Not (LTE (succ m) Z)
-notLeftSuccRightZeroLTE _ impossible
+notLeftSuccRightZeroLTE : (0 m : Nat) -> Not (LTE (succ m) Z)
+notLeftSuccRightZeroLTE _ _ impossible
 
 -------------------
 -- LT/LTE morphisms

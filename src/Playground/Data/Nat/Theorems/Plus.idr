@@ -75,7 +75,7 @@ plusCommutative m (S n') = rewrite plusCommutative m n' in
 %hint
 public export
 plusAssociative : (m, n, o : Nat) -> plus m (plus n o) = plus (plus m n) o
-plusAssociative m n Z      = Refl
+plusAssociative _ _ Z      = Refl
 plusAssociative m n (S o') = rewrite plusAssociative m n o' in Refl
 
 ----------------
@@ -84,13 +84,13 @@ plusAssociative m n (S o') = rewrite plusAssociative m n o' in Refl
 
 %hint
 public export
-plusLeftConstant : (m, n, c : Nat) -> (prf : m = n) -> plus c m = plus c n
-plusLeftConstant _ _ _ Refl = Refl
+plusLeftConstant : (c : Nat) -> (prf : m = n) -> plus c m = plus c n
+plusLeftConstant _ Refl = Refl
 
 %hint
 public export
-plusRightConstant : (m, n, c : Nat) -> (prf : m = n) -> plus m c = plus n c
-plusRightConstant _ _ _ Refl = Refl
+plusRightConstant : (c : Nat) -> (prf : m = n) -> plus m c = plus n c
+plusRightConstant _ Refl = Refl
 
 -----------
 -- plus one
@@ -113,13 +113,13 @@ plusRightOneSucc _ = Refl
 
 %hint
 public export
-plusLeftSuccSucc : (m, n, o : Nat) -> plus m n = o -> plus (succ m) n = S o
-plusLeftSuccSucc m n o prf = rewrite plusLeftSucc m n in succCong prf
+plusLeftSuccSucc : plus m n = o -> plus (succ m) n = S o
+plusLeftSuccSucc = rewrite plusLeftSucc m n in succCong
 
 %hint
 public export
-plusRightSuccSucc : (m, n, o : Nat) -> plus m n = o -> plus m (succ n) = S o
-plusRightSuccSucc m n o prf = succCong prf
+plusRightSuccSucc : plus m n = o -> plus m (succ n) = S o
+plusRightSuccSucc = succCong
 
 -----------------
 -- plus succ cong
@@ -127,23 +127,20 @@ plusRightSuccSucc m n o prf = succCong prf
 
 %hint
 public export
-plusLeftSuccCong : (m, n, o, p : Nat) -> plus m n = plus o p ->
-                   plus (succ m) n = plus (succ o) p
-plusLeftSuccCong m n o p prf = rewrite plusLeftSucc m n in
-                               rewrite plusLeftSucc o p in
-                               succCong prf
+plusLeftSuccCong : plus m n = plus o p -> plus (succ m) n = plus (succ o) p
+plusLeftSuccCong = rewrite plusLeftSucc m n in
+                   rewrite plusLeftSucc o p in succCong
 
 %hint
 public export
-plusRightSuccCong : (m, n, o, p : Nat) -> plus m n = plus o p ->
-                    plus m (succ n) = plus o (succ p)
-plusRightSuccCong m n o p prf = succCong prf
+plusRightSuccCong : plus m n = plus o p -> plus m (succ n) = plus o (succ p)
+plusRightSuccCong = succCong
 
 %hint
 public export
-plusBothSuccCong : (m, n, o, p : Nat) -> plus m n = plus o p ->
+plusBothSuccCong : plus m n = plus o p ->
                    plus (succ m) (succ n) = plus (succ o) (succ p)
-plusBothSuccCong m n o p prf = succCong (plusLeftSuccCong m n o p prf)
+plusBothSuccCong prf = succCong (plusLeftSuccCong prf)
 
 ----------------------
 -- plus succ injective
@@ -151,25 +148,22 @@ plusBothSuccCong m n o p prf = succCong (plusLeftSuccCong m n o p prf)
 
 %hint
 public export
-plusLeftSuccInjective : (m, n, o, p : Nat) ->
-                        plus (succ m) n = plus (succ o) p ->
+plusLeftSuccInjective : plus (succ m) n = plus (succ o) p ->
                         plus m n = plus o p
-plusLeftSuccInjective m n o p prf = succInjective
+plusLeftSuccInjective prf = succInjective
   (rewrite sym (plusLeftSucc m n) in rewrite sym (plusLeftSucc o p) in prf)
 
 %hint
 public export
-plusRightSuccInjective : (m, n, o, p : Nat) ->
-                         plus m (succ n) = plus o (succ p) ->
+plusRightSuccInjective : plus m (succ n) = plus o (succ p) ->
                          plus m n = plus o p
-plusRightSuccInjective m n o p prf = succInjective prf
+plusRightSuccInjective = succInjective
 
 %hint
 public export
-plusBothSuccInjective : (m, n, o, p : Nat) ->
-                        plus (succ m) (succ n) = plus (succ o) (succ p) ->
+plusBothSuccInjective : plus (succ m) (succ n) = plus (succ o) (succ p) ->
                         plus m n = plus o p
-plusBothSuccInjective m n o p prf = succInjective (succInjective
+plusBothSuccInjective prf = succInjective (succInjective
   (rewrite sym (plusLeftSucc m n) in rewrite sym (plusLeftSucc o p) in prf))
 
 --------------
@@ -178,19 +172,17 @@ plusBothSuccInjective m n o p prf = succInjective (succInjective
 
 %hint
 public export
-plusLeftCancel : (m, n, o : Nat) -> plus m n = plus m o -> n = o
-plusLeftCancel Z      n o prf = rewrite sym (plusLeftZeroNeutral n) in
-                                rewrite sym (plusLeftZeroNeutral o) in prf
-plusLeftCancel (S m') n o prf = plusLeftCancel m' n o
-  (plusLeftSuccInjective m' n m' o prf)
+plusLeftCancel : (m : Nat) -> plus m n = plus m o -> n = o
+plusLeftCancel Z      prf = rewrite sym (plusLeftZeroNeutral n) in
+                            rewrite sym (plusLeftZeroNeutral o) in prf
+plusLeftCancel (S m') prf = plusLeftCancel m' (plusLeftSuccInjective prf)
 
 %hint
 public export
-plusRightCancel : (m, n, o : Nat) -> plus m n = plus m o -> n = o
-plusRightCancel Z      n o prf = rewrite sym (plusLeftZeroNeutral n) in
-                                rewrite sym (plusLeftZeroNeutral o) in prf
-plusRightCancel (S m') n o prf = plusLeftCancel m' n o
-  (plusLeftSuccInjective m' n m' o prf)
+plusRightCancel : (m : Nat) -> plus m n = plus m o -> n = o
+plusRightCancel Z      prf = rewrite sym (plusLeftZeroNeutral n) in
+                             rewrite sym (plusLeftZeroNeutral o) in prf
+plusRightCancel (S m') prf = plusLeftCancel m' (plusLeftSuccInjective prf)
 
 ------------------
 -- plus impossible
@@ -198,17 +190,17 @@ plusRightCancel (S m') n o prf = plusLeftCancel m' n o
 
 %hint
 public export
-noPlusLeftSuccZero : (m, n : Nat) -> Not (plus (succ m) n = 0)
-noPlusLeftSuccZero Z      Z      prf impossible
-noPlusLeftSuccZero (S m') Z      prf impossible
-noPlusLeftSuccZero (S m') (S n') prf impossible
+noPlusLeftSuccZero : (0 m, n : Nat) -> Not (plus (succ m) n = 0)
+noPlusLeftSuccZero Z     Z     prf impossible
+noPlusLeftSuccZero (S _) Z     prf impossible
+noPlusLeftSuccZero (S _) (S _) prf impossible
 
 %hint
 public export
-noPlusRightSuccZero : (m, n : Nat) -> Not (plus m (succ n) = 0)
-noPlusRightSuccZero Z      Z      prf impossible
-noPlusRightSuccZero (S m') Z      prf impossible
-noPlusRightSuccZero (S m') (S n') prf impossible
+noPlusRightSuccZero : (0 m, n : Nat) -> Not (plus m (succ n) = 0)
+noPlusRightSuccZero Z     Z     prf impossible
+noPlusRightSuccZero (S _) Z     prf impossible
+noPlusRightSuccZero (S _) (S _) prf impossible
 
 ------------
 -- plus zero
@@ -217,13 +209,13 @@ noPlusRightSuccZero (S m') (S n') prf impossible
 %hint
 public export
 zeroPlusLeftZero : (m, n : Nat) -> plus m n = 0 -> m = 0
-zeroPlusLeftZero m Z      prf = prf
+zeroPlusLeftZero _ Z      prf = prf
 zeroPlusLeftZero m (S n') prf = void (noPlusRightSuccZero m n' prf)
 
 %hint
 public export
 zeroPlusRightZero : (m, n : Nat) -> plus m n = 0 -> n = 0
-zeroPlusRightZero m Z      prf = Refl
+zeroPlusRightZero _ Z      prf = Refl
 zeroPlusRightZero m (S n') prf = void (noPlusLeftSuccZero m n'
   (rewrite plusLeftSucc m n' in prf))
 
@@ -256,7 +248,7 @@ plusOddOddIsEven lprf (OddS rprf') = EvenS (plusOddOddIsEven lprf rprf')
 %hint
 public export
 plusLeftLT : (m, n : Nat) -> LT m (plus m (succ n))
-plusLeftLT Z      n     = LTZero
+plusLeftLT Z      _     = LTZero
 plusLeftLT (S m') n     = rewrite plusLeftSucc m' n in LTSucc (plusLeftLT m' n)
 
 %hint
@@ -267,7 +259,7 @@ plusRightLT m n = rewrite plusCommutative (S m) n in plusLeftLT n m
 %hint
 public export
 plusLeftLTE : (m, n : Nat) -> LTE m (plus m n)
-plusLeftLTE Z      n = LTEZero
+plusLeftLTE Z      _ = LTEZero
 plusLeftLTE (S m') n = rewrite plusLeftSucc m' n in LTESucc (plusLeftLTE m' n)
 
 %hint
@@ -300,6 +292,6 @@ plusLTEMonotoneLeft m n o prf = rewrite plusCommutative m n in
 public export
 plusMonotone : (m, n, o, p : Nat) -> LTE m n -> LTE o p ->
                LTE (plus m o) (plus n p)
-plusMonotone m n o p lprf rprf = transitiveLTE _ _ _
+plusMonotone m n o p lprf rprf = transitiveLTE
   (plusLTEMonotoneLeft m o p rprf)
   (plusLTEMonotoneRight p m n lprf)

@@ -27,13 +27,13 @@ import Playground.Data.Nat.Prop.Odd
 
 %hint
 public export
-notZeroSucc : Not (Z = S n)
-notZeroSucc _ impossible
+notZeroSucc : (0 n : Nat) -> Not (Z = S n)
+notZeroSucc _ _ impossible
 
 %hint
 public export
-notSuccZero : Not (S n = Z)
-notSuccZero _ impossible
+notSuccZero : (0 n : Nat) -> Not (S n = Z)
+notSuccZero _ _ impossible
 
 --------------------------
 -- succ cong and injective
