@@ -26,6 +26,12 @@ import Playground.Data.Nat.Prop.Odd
 ----------------------
 
 public export
+evenPred : (m : Nat) -> Even (S (S m)) -> Even m
+evenPred Z         _           = EvenZ
+evenPred (S Z)     EvenZ       impossible
+evenPred (S (S _)) (EvenS prf) = prf
+
+public export
 notEvenSuccSucc : Not (Even m) -> Not (Even (succ (succ m)))
 notEvenSuccSucc contra (EvenS prf) = contra prf
 
@@ -40,6 +46,12 @@ notEvenOne _ impossible
 ---------------------
 -- Odd basic theorems
 ---------------------
+
+public export
+oddPred : (m : Nat) -> Odd (S (S m)) -> Odd m
+oddPred Z         OddO       impossible
+oddPred (S Z)     _          = OddO
+oddPred (S (S _)) (OddS prf) = prf
 
 public export
 notOddSuccSucc : Not (Odd m) -> Not (Odd (succ (succ m)))

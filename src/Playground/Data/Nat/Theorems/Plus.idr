@@ -72,6 +72,21 @@ plusAssociative : (m, n, o : Nat) -> plus m (plus n o) = plus (plus m n) o
 plusAssociative _ _ Z      = Refl
 plusAssociative m n (S o') = rewrite plusAssociative m n o' in Refl
 
+-----------------
+-- plus succ move
+-----------------
+
+public export
+plusMoveSuccRight : (m, n : Nat) -> plus (succ m) n = plus m (succ n)
+plusMoveSuccRight m n = rewrite plusLeftSucc m n in
+                        rewrite sym (plusRightSucc m n) in Refl
+
+public export
+plusMoveSuccLeft : (m, n : Nat) -> plus m (succ n) = plus (succ m) n
+plusMoveSuccLeft m n = rewrite plusCommutative (succ m) n in
+                       rewrite plusCommutative m (succ n) in
+                       plusMoveSuccRight n m
+
 ------------
 -- plus swap
 ------------
@@ -88,16 +103,12 @@ plusSwapRight m n o = rewrite sym (plusAssociative m o n) in
                       rewrite plusCommutative o n in
                       rewrite plusAssociative m n o in Refl
 
----------------
--- plus compact
----------------
-
 public export
-plusCompact : (m, n, o, p : Nat) ->
-                  plus (plus m n) (plus o p) = plus (plus m o) (plus n p)
-plusCompact m n o p = rewrite sym (plusAssociative m o (plus n p)) in
-                      rewrite plusSwapLeft o n p in
-                      rewrite plusAssociative m n (plus o p) in Refl
+plusSwap : (m, n, o, p : Nat) ->
+           plus (plus m n) (plus o p) = plus (plus m o) (plus n p)
+plusSwap m n o p = rewrite sym (plusAssociative m o (plus n p)) in
+                   rewrite plusSwapLeft o n p in
+                   rewrite plusAssociative m n (plus o p) in Refl
 
 ----------------
 -- plus constant
@@ -237,9 +248,19 @@ plusEvenOddIsOdd lprf OddO         = succEvenIsOdd lprf
 plusEvenOddIsOdd lprf (OddS rprf') = OddS (plusEvenOddIsOdd lprf rprf')
 
 public export
+plusOddEvenIsOdd : Odd m -> Even n -> Odd (plus m n)
+plusOddEvenIsOdd lprf rprf =
+  rewrite plusCommutative m n in plusEvenOddIsOdd rprf lprf
+
+public export
 plusOddOddIsEven : Odd m -> Odd n -> Even (plus m n)
 plusOddOddIsEven lprf OddO         = succOddIsEven lprf
 plusOddOddIsEven lprf (OddS rprf') = EvenS (plusOddOddIsEven lprf rprf')
+
+public export
+plusSameIsEven : (m : Nat) -> Even (plus m m)
+plusSameIsEven Z      = EvenZ
+plusSameIsEven (S m') = rewrite plusLeftSucc m' m' in EvenS (plusSameIsEven m')
 
 --------------
 -- plus LT/LTE
