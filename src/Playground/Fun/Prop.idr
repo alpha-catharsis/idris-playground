@@ -2,12 +2,10 @@
 -- Module declaration
 ---------------------
 
-module Playground
+module Playground.Fun.Prop
 
 -----------------
 -- Public imports
 -----------------
 
-import public Playground.Basics
-import public Playground.Data
-import public Playground.Fun
+import public Playground.Fun.Prop.Alternate
