@@ -2,7 +2,7 @@
 -- Module declaration
 ---------------------
 
-module Playground.Data.Nat.Prop.Odd
+module Playground.Data.Nat.Prop.Even
 
 -------------------
 -- Internal imports
@@ -12,11 +12,11 @@ import Playground.Data.Nat.Nat
 import Playground.Data.Nat.Ops.Hyper
 import Playground.Data.Nat.Ops.Succ
 
-------
--- Odd
-------
+-------
+-- Even
+-------
 
-public export
-data Odd : (m : Nat) -> Type where
-  OddO : Odd (S Z)
-  OddS : (prf : Odd m) -> Odd (succ (succ m))
+-- public export
+-- data Even : (m : Nat) -> Type where
+--   EvenZ : Even Z
+--   EvenS : (prf : Even m) -> Even (succ (succ m))

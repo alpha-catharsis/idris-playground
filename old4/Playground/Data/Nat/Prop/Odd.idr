@@ -2,7 +2,7 @@
 -- Module declaration
 ---------------------
 
-module Playground.Data.Nat.Rel.LT
+module Playground.Data.Nat.Prop.Odd
 
 -------------------
 -- Internal imports
@@ -12,11 +12,11 @@ import Playground.Data.Nat.Nat
 import Playground.Data.Nat.Ops.Hyper
 import Playground.Data.Nat.Ops.Succ
 
------
--- LT
------
+------
+-- Odd
+------
 
-public export
-data LT : (m : Nat) -> (n : Nat) -> Type where
-  LTZero : LT Z (succ n)
-  LTSucc : LT m n -> LT (succ m) (succ n)
+-- public export
+-- data Odd : (m : Nat) -> Type where
+--   OddO : Odd (S Z)
+--   OddS : (prf : Odd m) -> Odd (succ (succ m))

@@ -2,10 +2,10 @@
 -- Module declaration
 ---------------------
 
-module Playground.Fun.Repeat.Theorems
+module Playground.Fun.Id
 
 -----------------
 -- Public imports
 -----------------
 
-import public Playground.Fun.Repeat.Theorems.Repeat
+import public Playground.Fun.Id.Id

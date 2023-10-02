@@ -29,37 +29,37 @@ import Playground.Data.Nat.Theorems.Succ
 -- power to zero
 ----------------
 
-public export
-powToZeroIsOne : (b : Nat) -> pow b Z = succ Z
-powToZeroIsOne _ = Refl
+-- public export
+-- powToZeroIsOne : (b : Nat) -> pow b Z = succ Z
+-- powToZeroIsOne _ = Refl
 
 ---------------
 -- power to one
 ---------------
 
-public export
-powToOneIsSame : (b : Nat) -> pow b (succ Z) = b
-powToOneIsSame _ = Refl
+-- public export
+-- powToOneIsSame : (b : Nat) -> pow b (succ Z) = b
+-- powToOneIsSame _ = Refl
 
 ----------------
 -- power of zero
 ----------------
 
-public export
-powOfZeroIsOne : (m : Nat) -> pow Z (succ m) = Z
-powOfZeroIsOne Z      = Refl
-powOfZeroIsOne (S m') = rewrite multLeftZeroAbsorb (mult Z (pow Z m')) in Refl
+-- public export
+-- powOfZeroIsOne : (m : Nat) -> pow Z (succ m) = Z
+-- powOfZeroIsOne Z      = Refl
+-- powOfZeroIsOne (S m') = rewrite multLeftZeroAbsorb (mult Z (pow Z m')) in Refl
 
 ------------------
 -- power mult succ
 ------------------
 
-powLeftMultSucc : (b, m : Nat) -> mult b (pow b m) = pow b (succ m)
-powLeftMultSucc _ _ = Refl
+-- powLeftMultSucc : (b, m : Nat) -> mult b (pow b m) = pow b (succ m)
+-- powLeftMultSucc _ _ = Refl
 
-powRightMultSucc : (b, m : Nat) -> mult (pow b m) b = pow b (succ m)
-powRightMultSucc b m = rewrite multCommutative (pow b m) b in
-                       powLeftMultSucc b m
+-- powRightMultSucc : (b, m : Nat) -> mult (pow b m) b = pow b (succ m)
+-- powRightMultSucc b m = rewrite multCommutative (pow b m) b in
+--                        powLeftMultSucc b m
 
 ----------------
 -- power to plus

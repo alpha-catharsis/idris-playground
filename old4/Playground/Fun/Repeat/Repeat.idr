@@ -15,6 +15,6 @@ import Playground.Data.Nat.Nat
 --------------------
 
 public export
-repeat : (n : Nat) -> (f : a -> a) -> (x : a) -> a
-repeat Z      f  x = x
-repeat (S n') f  x = f (repeat n' f x)
+repeat : (f : a -> a) -> (j : Nat) -> (x : a) -> a
+repeat f Z      x = x
+repeat f (S j') x = f (repeat f j' x)

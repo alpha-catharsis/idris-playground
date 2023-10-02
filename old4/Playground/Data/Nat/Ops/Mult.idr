@@ -2,7 +2,7 @@
 -- Module declaration
 ---------------------
 
-module Playground.Data.Nat.Ops.Pow
+module Playground.Data.Nat.Ops.Mult
 
 -------------------
 -- Internal imports
@@ -12,9 +12,9 @@ import Playground.Data.Nat.Nat
 import Playground.Data.Nat.Ops.Hyper
 
 -----------------
--- pow operation
+-- mult operation
 -----------------
 
-public export
-pow : Nat -> Nat -> Nat
-pow m n = hyper (S (S (S Z))) m n
+-- public export
+-- mult : Nat -> Nat -> Nat
+-- mult m n = hyper (S (S Z)) m n

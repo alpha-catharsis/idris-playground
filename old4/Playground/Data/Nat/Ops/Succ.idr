@@ -2,7 +2,7 @@
 -- Module declaration
 ---------------------
 
-module Playground.Data.Nat.Ops.Mult
+module Playground.Data.Nat.Ops.Succ
 
 -------------------
 -- Internal imports
@@ -12,9 +12,9 @@ import Playground.Data.Nat.Nat
 import Playground.Data.Nat.Ops.Hyper
 
 -----------------
--- mult operation
+-- succ operation
 -----------------
 
-public export
-mult : Nat -> Nat -> Nat
-mult m n = hyper (S (S Z)) m n
+-- public export
+-- succ : Nat -> Nat
+-- succ m = hyper Z m m

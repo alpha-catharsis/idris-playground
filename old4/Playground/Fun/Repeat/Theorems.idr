@@ -9,3 +9,4 @@ module Playground.Fun.Repeat.Theorems
 -----------------
 
 import public Playground.Fun.Repeat.Theorems.Repeat
+import public Playground.Fun.Repeat.Theorems.RepeatRec

@@ -2,13 +2,7 @@
 -- Module declaration
 ---------------------
 
-module Playground.Data.Nat.Ops.Plus
-
--------------------
--- External imports
--------------------
-
-import Builtin
+module Playground.Data.Nat.Ops.Pow
 
 -------------------
 -- Internal imports
@@ -18,9 +12,9 @@ import Playground.Data.Nat.Nat
 import Playground.Data.Nat.Ops.Hyper
 
 -----------------
--- plus operation
+-- pow operation
 -----------------
 
-public export
-plus : Nat -> Nat -> Nat
-plus m n = hyper (S Z) m n
+-- public export
+-- pow : Nat -> Nat -> Nat
+-- pow m n = hyper (S (S (S Z))) m n

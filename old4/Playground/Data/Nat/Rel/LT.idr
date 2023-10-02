@@ -2,7 +2,7 @@
 -- Module declaration
 ---------------------
 
-module Playground.Data.Nat.Prop.Even
+module Playground.Data.Nat.Rel.LT
 
 -------------------
 -- Internal imports
@@ -12,11 +12,11 @@ import Playground.Data.Nat.Nat
 import Playground.Data.Nat.Ops.Hyper
 import Playground.Data.Nat.Ops.Succ
 
--------
--- Even
--------
+-----
+-- LT
+-----
 
-public export
-data Even : (m : Nat) -> Type where
-  EvenZ : Even Z
-  EvenS : (prf : Even m) -> Even (succ (succ m))
+-- public export
+-- data LT : (m : Nat) -> (n : Nat) -> Type where
+--   LTZero : LT Z (succ n)
+--   LTSucc : LT m n -> LT (succ m) (succ n)
