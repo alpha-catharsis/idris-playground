@@ -71,7 +71,7 @@ import Playground.Data.Nat.Theorems.Succ
 -- plusAssociative : (m, n, o : Nat) -> plus m (plus n o) = plus (plus m n) o
 -- plusAssociative _ _ Z      = Refl
 -- plusAssociative m n (S o') = rewrite plusAssociative m n o' in Refl
-
+o
 -----------------
 -- plus succ move
 -----------------

@@ -2,11 +2,10 @@
 -- Module declaration
 ---------------------
 
-module Playground.Data.Nat
+module Playground.Fun.Prop
 
 -----------------
 -- Public imports
 -----------------
 
-import public Playground.Data.Nat.Nat
-import public Playground.Data.Nat.Theorems
+import public Playground.Fun.Prop.Basics

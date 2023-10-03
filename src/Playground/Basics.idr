@@ -34,7 +34,7 @@ void = prim__void
 -------------
 
 public export
-cong : (0 f : t -> u) -> (p : a = b) -> f a = f b
+cong : (0 f : t -> u) -> (0 p : a = b) -> f a = f b
 cong f Refl = Refl
 
 ---------
