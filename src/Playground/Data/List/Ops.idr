@@ -2,11 +2,10 @@
 -- Module declaration
 ---------------------
 
-module Playground.Data
+module Playground.Data.List.Ops
 
 -----------------
 -- Public imports
 -----------------
 
-import public Playground.Data.List
-import public Playground.Data.Nat
+import public Playground.Data.List.Ops.Length

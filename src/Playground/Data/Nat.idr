@@ -9,4 +9,3 @@ module Playground.Data.Nat
 -----------------
 
 import public Playground.Data.Nat.Nat
-import public Playground.Data.Nat.Theorems
