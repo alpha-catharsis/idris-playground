@@ -17,6 +17,12 @@ import Playground.Rel.Rel
 
 public export
 data Asymmetric : Prop (BinHRel a) where
-  IsAsymmetric : {rel : BinHRel a} ->
-                 ({x : a} -> {y : a} -> rel x y -> Not (rel y x)) ->
+  IsAsymmetric : {0 rel : BinHRel a} ->
+                 ({0 x : a} -> {0 y : a} -> rel x y -> Not (rel y x)) ->
                  Asymmetric rel
+
+export
+%hint
+asym : Asymmetric rel -> rel x y -> Not (rel y x)
+asym (IsAsymmetric f) relXY = f relXY
+

@@ -17,5 +17,10 @@ import Playground.Rel.Rel
 
 public export
 data Serial : Prop (BinHRel a) where
-  IsSerial : {rel : BinHRel a} -> ({x : a} -> (y : a ** rel x y)) ->
+  IsSerial : {0 rel : BinHRel a} -> ((x : a) -> (y : a ** rel x y)) ->
              Serial rel
+
+export
+%hint
+serial : Serial rel -> (x : a) -> (y : a ** rel x y)
+serial (IsSerial f) x = f x

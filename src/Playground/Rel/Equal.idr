@@ -9,3 +9,4 @@ module Playground.Rel.Equal
 -----------------
 
 import public Playground.Rel.Equal.Equal
+import public Playground.Rel.Equal.Rels

@@ -16,4 +16,9 @@ import Playground.Rel.Rel
 
 public export
 data Reflexive : Prop (BinHRel a) where
-  IsReflexive : {rel : BinHRel a} -> ({x : a} -> rel x x) -> Reflexive rel
+  IsReflexive : {0 rel : BinHRel a} -> ({0 x : a} -> rel x x) -> Reflexive rel
+
+export
+-- %hint
+reflexive : Reflexive rel -> rel x x
+reflexive (IsReflexive prf) = prf

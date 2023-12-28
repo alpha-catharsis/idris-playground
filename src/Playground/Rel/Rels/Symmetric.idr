@@ -16,5 +16,10 @@ import Playground.Rel.Rel
 
 public export
 data Symmetric : Prop (BinHRel a) where
-  IsSymmetric : {rel : BinHRel a} ->
-                ({x : a} -> {y : a} -> rel x y -> rel y x) -> Symmetric rel
+  IsSymmetric : {0 rel : BinHRel a} ->
+                ({0 x : a} -> {0 y : a} -> rel x y -> rel y x) -> Symmetric rel
+
+export
+-- %hint
+sym : Symmetric rel -> rel x y -> rel y x
+sym (IsSymmetric f) relXY = f relXY

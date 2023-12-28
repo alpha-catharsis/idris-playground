@@ -17,7 +17,12 @@ import Playground.Rel.Rel
 
 public export
 data Injective : Prop (BinHRel a) where
-  IsInjective : {rel : BinHRel a} ->
-                ({x : a} -> {y : a} -> {z : a} -> rel x y -> rel z y ->
+  IsInjective : {0 rel : BinHRel a} ->
+                ({0 x : a} -> {0 y : a} -> {0 z : a} -> rel x y -> rel z y ->
                  x = z) ->
                 Injective rel
+
+export
+%hint
+inj : Injective rel -> rel x y -> rel z y -> x = z
+inj (IsInjective f) relXY relZY = f relXY relZY

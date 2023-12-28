@@ -17,5 +17,10 @@ import Playground.Rel.Rel
 
 public export
 data Irreflexive : Prop (BinHRel a) where
-  IsIrreflexive : {rel : BinHRel a} -> ({x : a} -> Not (rel x x)) ->
+  IsIrreflexive : {0 rel : BinHRel a} -> ({0 x : a} -> Not (rel x x)) ->
                   Irreflexive rel
+
+export
+%hint
+irreflexive : Irreflexive rel -> Not (rel x x)
+irreflexive (IsIrreflexive prf) = prf

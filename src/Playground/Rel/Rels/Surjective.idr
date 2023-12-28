@@ -17,5 +17,10 @@ import Playground.Rel.Rel
 
 public export
 data Surjective : Prop (BinHRel a) where
-  IsSurjective : {rel : BinHRel a} -> ({y : a} -> (x : a ** rel x y)) ->
+  IsSurjective : {0 rel : BinHRel a} -> ((y : a) -> (x : a ** rel x y)) ->
                  Surjective rel
+
+export
+%hint
+surj : Surjective rel -> (y : a) -> (x : a ** rel x y)
+surj (IsSurjective f) y = f y

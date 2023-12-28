@@ -18,6 +18,12 @@ import Playground.Rel.Rel
 
 public export
 data Dense : Prop (BinHRel a) where
-  IsDense : {rel : BinHRel a} ->
-            ({x : a} -> {y : a} -> rel x y -> (z : a ** (rel x z, rel z y))) ->
+  IsDense : {0 rel : BinHRel a} ->
+            ({0 x : a} -> {0 y : a} -> rel x y ->
+             (z : a ** (rel x z, rel z y))) ->
             Dense rel
+
+export
+%hint
+dense : Dense rel -> rel x y -> (z : a ** (rel x z, rel z y))
+dense (IsDense f) relXY = f relXY
