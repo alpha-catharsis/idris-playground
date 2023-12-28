@@ -9,7 +9,6 @@ module Playground.Fn.Fn
 -------------------
 
 import Playground.Data.List.List
-import Playground.Data.Void.Void
 
 ----------------------
 -- Function definition

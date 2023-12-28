@@ -2,12 +2,11 @@
 -- Module declaration
 ---------------------
 
-module Playground.Fn
+module Playground.Fn.Rel
 
 -----------------
 -- Public imports
 -----------------
 
-import public Playground.Fn.Fn
-import public Playground.Fn.Fns
-import public Playground.Fn.Rel
+import public Playground.Fn.Rel.Associative
+import public Playground.Fn.Rel.Identity

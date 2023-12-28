@@ -2,12 +2,10 @@
 -- Module declaration
 ---------------------
 
-module Playground.Fn
+module Playground.Algebra.Semigroup.Rel
 
 -----------------
 -- Public imports
 -----------------
 
-import public Playground.Fn.Fn
-import public Playground.Fn.Fns
-import public Playground.Fn.Rel
+import public Playground.Algebra.Semigroup.Rel.Semigroup
