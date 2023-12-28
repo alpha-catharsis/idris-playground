@@ -2,7 +2,7 @@
 -- Module declaration
 ---------------------
 
-module Playground.Data.List.Rels.Proper.Rels.Decidable
+module Playground.Data.List.Rels.Proper.Fns.DecProper
 
 -------------------
 -- Internal imports

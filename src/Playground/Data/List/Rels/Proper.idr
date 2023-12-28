@@ -9,5 +9,5 @@ module Playground.Data.List.Rels.Proper
 -----------------
 
 import public Playground.Data.List.Rels.Proper.IFaces
+import public Playground.Data.List.Rels.Proper.Fns
 import public Playground.Data.List.Rels.Proper.Proper
-import public Playground.Data.List.Rels.Proper.Rels

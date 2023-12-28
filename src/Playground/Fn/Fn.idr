@@ -41,15 +41,13 @@ UnyOp a = Fn [a] a
 ------------------------------
 
 public export
-BinFn : Type -> Type
-BinFn a = Fn [a, a] a
+BinOp : Type -> Type
+BinOp a = Fn [a, a] a
 
 -------------------------------
 -- Ternary Operation definition
 -------------------------------
 
 public export
-TernFn : Type -> Type
-TernFn a = Fn [a, a, a] a
-
-
+TernOp : Type -> Type
+TernOp a = Fn [a, a, a] a

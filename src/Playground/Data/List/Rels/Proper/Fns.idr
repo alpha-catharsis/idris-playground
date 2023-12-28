@@ -2,10 +2,10 @@
 -- Module declaration
 ---------------------
 
-module Playground.Data.List.Rels.Proper.Rels
+module Playground.Data.List.Rels.Proper.Fns
 
 -----------------
 -- public imports
 -----------------
 
-import public Playground.Data.List.Rels.Proper.Rels.Decidable
+import public Playground.Data.List.Rels.Proper.Fns.DecProper
