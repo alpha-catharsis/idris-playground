@@ -20,7 +20,7 @@ import Playground.Fn.Fn
 infixr 9 .
 
 public export
-(.) : Fn [a] r -> Fn [r] r' -> Fn [a] r'
+(.) : UnyFn a r -> UnyFn r r' -> UnyFn a r'
 (.) f g = \x => g (f x)
 
 public export

@@ -20,6 +20,14 @@ Fn : List Type -> Type -> Type
 Fn [] r = r
 Fn (a::as) r = a -> Fn as r
 
+----------------------------
+-- Unary Function definition
+----------------------------
+
+public export
+UnyFn : Type -> Type -> Type
+UnyFn a b = Fn [a] b
+
 -----------------------------
 -- Unary Operation definition
 -----------------------------

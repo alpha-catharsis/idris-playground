@@ -10,4 +10,5 @@ module Playground
 
 import public Playground.Data
 import public Playground.Fn
+import public Playground.IFace
 import public Playground.Rel
