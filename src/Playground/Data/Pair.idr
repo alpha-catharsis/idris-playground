@@ -2,11 +2,10 @@
 -- Module declaration
 ---------------------
 
-module Playground
+module Playground.Data.Pair
 
 -----------------
 -- Public imports
 -----------------
 
-import public Playground.Data
-import public Playground.Rel
+import public Playground.Data.Pair.Pair

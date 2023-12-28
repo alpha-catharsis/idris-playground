@@ -19,3 +19,10 @@ public export
 length : List a -> Nat
 length [] = Z
 length (_::xs) = S (length xs)
+
+------------------
+-- Length theorems
+------------------
+
+-- public export
+-- lengthCons : (xs : List a) -> length (x::xs) = S length xs

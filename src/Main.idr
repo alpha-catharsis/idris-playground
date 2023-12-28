@@ -4,6 +4,5 @@ import Prelude
 
 import Playground
 
-main : IO ()
-main = do
-  putStrLn "OK"
+main : IO Builtin.Unit
+main = pure Builtin.MkUnit

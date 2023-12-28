@@ -2,11 +2,10 @@
 -- Module declaration
 ---------------------
 
-module Playground
+module Playground.Rel.Equal
 
 -----------------
 -- Public imports
 -----------------
 
-import public Playground.Data
-import public Playground.Rel
+import public Playground.Rel.Equal.Equal
