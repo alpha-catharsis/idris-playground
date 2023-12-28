@@ -2,10 +2,11 @@
 -- Module declaration
 ---------------------
 
-module Playground.Data.List.Ops
+module Playground.Fn
 
 -----------------
 -- Public imports
 -----------------
 
-import public Playground.Data.List.Ops.Length
+import public Playground.Fn.Fn
+import public Playground.Fn.Fns

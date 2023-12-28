@@ -2,7 +2,7 @@
 -- Module declaration
 ---------------------
 
-module Playground.Data.List.Ops.Length
+module Playground.Data.List.Fns.Length
 
 -------------------
 -- Internal imports
@@ -20,9 +20,3 @@ length : List a -> Nat
 length [] = Z
 length (_::xs) = S (length xs)
 
-------------------
--- Length theorems
-------------------
-
--- public export
--- lengthCons : (xs : List a) -> length (x::xs) = S length xs

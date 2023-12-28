@@ -2,12 +2,10 @@
 -- Module declaration
 ---------------------
 
-module Playground
+module Playground.Data.List.Rels
 
 -----------------
 -- Public imports
 -----------------
 
-import public Playground.Data
-import public Playground.Fn
-import public Playground.Rel
+import public Playground.Data.List.Rels.Proper
