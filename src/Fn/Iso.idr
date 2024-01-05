@@ -29,6 +29,12 @@ data Iso : (f : a -> b) -> (f' : b -> a) -> Type where
   MkIso : (f : a -> b) -> (f' : b -> a) -> FnEq (f' . f) Id.id ->
           FnEq (f . f') Id.id -> Iso f f'
 
+public export
+data Iso2 : (f : (a -> b) -> (c -> d)) ->
+            (f' : (c -> d) -> (a -> b)) -> Type where
+  MkIso2 : (f : (a -> b) -> (c -> d)) -> (f' : (c -> d) -> (a -> b)) ->
+           FnEq2 (f' . f) Id.id -> FnEq2 (f . f') Id.id -> Iso2 f f'
+
 ----------------------
 -- Isomorpism theorems
 ----------------------
@@ -108,7 +114,6 @@ sumZeroIso = MkIso sumZero sumZero'
                       Inj1 x => Refl
                       Inj2 y => absurd y)
                    (\x => Refl)
-
 
 -----------------------
 -- Boolean isomorphisms

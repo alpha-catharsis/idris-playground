@@ -23,4 +23,5 @@ import public Fn.Prod
 import public Fn.Split
 import public Fn.Sum
 import public Fn.Swap
+import public Fn.Transpose
 import public Fn.Undistr
