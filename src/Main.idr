@@ -2,7 +2,11 @@ module Main
 
 import Prelude
 
-import Playground
+import Data
+import Inhabited
+import Fn
+import Rel
 
-main : IO Builtin.Unit
-main = pure Builtin.MkUnit
+main : IO (Builtin.Unit)
+main = do
+  putStrLn "OK"
