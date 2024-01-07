@@ -30,10 +30,10 @@ data Iso : (f : a -> b) -> (f' : b -> a) -> Type where
           FnEq (f . f') Id.id -> Iso f f'
 
 public export
-data Iso2 : (f : (a -> b) -> (c -> d)) ->
+data HIso : (f : (a -> b) -> (c -> d)) ->
             (f' : (c -> d) -> (a -> b)) -> Type where
-  MkIso2 : (f : (a -> b) -> (c -> d)) -> (f' : (c -> d) -> (a -> b)) ->
-           FnEq2 (f' . f) Id.id -> FnEq2 (f . f') Id.id -> Iso2 f f'
+  MkHIso : (f : (a -> b) -> (c -> d)) -> (f' : (c -> d) -> (a -> b)) ->
+           HFnEq (f' . f) Id.id -> HFnEq (f . f') Id.id -> HIso f f'
 
 ----------------------
 -- Isomorpism theorems

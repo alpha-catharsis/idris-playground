@@ -14,6 +14,8 @@ import Fn.Comp
 import Fn.Eq
 import Fn.Id
 import Fn.Iso
+import Fn.Prod
+import Fn.Split
 import Rel.Equal
 
 ---------------------
@@ -22,11 +24,11 @@ import Rel.Equal
 
 public export
 transpose : (Prod a b -> c) -> a -> Exp c b
-transpose f = \x => MkExp (\y => f (MkProd x y))
+transpose f = \x, y => f (MkProd x y)
 
 public export
 transpose' : (a -> Exp c b) -> Prod a b -> c
-transpose' f = \(MkProd x y) => let MkExp g = f x in g y
+transpose' f = \(MkProd x y) => f x y
 
 ------------------------------
 -- transpose function theorems
@@ -38,11 +40,14 @@ transposeInv f (MkProd _ _) = Refl
 
 export
 transposeInv' : (f : a -> Exp c b) -> FnEq (transpose (transpose' f)) f
-transposeInv' f x with (f x)
-  transposeInv' f x | MkExp g = Refl
+transposeInv' f x = Refl
 
 export
-transposeIso : Iso2 Transpose.transpose Transpose.transpose'
-transposeIso = MkIso2 transpose transpose'
-                     (\f => transposeInv f)
-                     (\f' => transposeInv' f')
+transposeIso : HIso Transpose.transpose Transpose.transpose'
+transposeIso = MkHIso transpose transpose' transposeInv transposeInv'
+
+export
+transposeEq : {0 f : Prod a b -> c} -> {0 x : a} -> {0 y : b} ->
+              f (MkProd x y) = transpose f x y
+transposeEq = Refl
+

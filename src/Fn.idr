@@ -9,12 +9,15 @@ module Fn
 -----------------
 
 import public Fn.Assoc
+import public Fn.Ap
 import public Fn.Bang
 import public Fn.Comp
+import public Fn.ComposeWith
 import public Fn.Const
 import public Fn.Either
 import public Fn.Eq
 import public Fn.Epic
+import public Fn.Exp
 import public Fn.Guard
 import public Fn.Id
 import public Fn.Iso

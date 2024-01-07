@@ -20,7 +20,7 @@ main = Main
 
 -- name of executable
 executable = "playground"
-opts = "--no-prelude --total --Werror"
+opts = "--no-prelude"
 sourcedir = "src"
 -- builddir =
 -- outputdir =

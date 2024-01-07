@@ -6,6 +6,7 @@ import Data
 import Inhabited
 import Fn
 import Rel
+import ScratchPad
 
 main : IO (Builtin.Unit)
 main = do
