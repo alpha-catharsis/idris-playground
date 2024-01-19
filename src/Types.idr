@@ -2,12 +2,11 @@
 -- Module declaration
 ---------------------
 
-module Data.Void
+module Types
 
 -----------------
 -- Public imports
 -----------------
 
-import public Data.Void.Elimination
-import public Data.Void.Instances
-import public Data.Void.Void
+import public Types.Inhabited
+import public Types.Uninhabited

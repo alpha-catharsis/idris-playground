@@ -13,14 +13,14 @@ authors = "Alpha Catharsis"
 -- depends =
 
 -- modules to install
--- modules = Playground
+modules = Algebra, Data, Rel, Types
 
 -- main file (i.e. file to load at REPL)
 main = Main
 
 -- name of executable
 executable = "playground"
-opts = "--no-prelude"
+opts = "--total --no-prelude --Werror"
 sourcedir = "src"
 -- builddir =
 -- outputdir =

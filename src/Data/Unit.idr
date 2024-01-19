@@ -4,10 +4,9 @@
 
 module Data.Unit
 
-------------------
--- Unit definition
-------------------
+-----------------
+-- Public imports
+-----------------
 
-public export
-data Unit : Type where
-  MkUnit : Unit
+import public Data.Unit.Instances
+import public Data.Unit.Unit

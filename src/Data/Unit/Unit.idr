@@ -2,11 +2,12 @@
 -- Module declaration
 ---------------------
 
-module Rel
+module Data.Unit.Unit
 
 -----------------
--- Public imports
+-- Unit data type
 -----------------
 
-import public Rel.Pred
-import public Rel.Rel
+public export
+data Unit : Type where
+  MkUnit : Unit

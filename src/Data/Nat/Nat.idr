@@ -2,11 +2,13 @@
 -- Module declaration
 ---------------------
 
-module Rel
+module Data.Nat.Nat
 
 -----------------
--- Public imports
+-- Nat data type
 -----------------
 
-import public Rel.Pred
-import public Rel.Rel
+public export
+data Nat : Type where
+  Z : Nat
+  S : Nat -> Nat

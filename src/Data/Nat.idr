@@ -4,11 +4,8 @@
 
 module Data.Nat
 
------------------------------
--- Natural numbers definition
------------------------------
+-----------------
+-- Public imports
+-----------------
 
-public export
-data Nat : Type where
-  Z : Nat
-  S : Nat -> Nat
+import public Data.Nat.Nat
