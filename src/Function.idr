@@ -10,3 +10,4 @@ module Function
 
 import public Function.Composition
 import public Function.Identity
+import public Function.Properties

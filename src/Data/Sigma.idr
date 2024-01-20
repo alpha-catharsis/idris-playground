@@ -2,9 +2,10 @@
 -- Module declaration
 ---------------------
 
-module Algebra
+module Data.Sigma
 
 -----------------
 -- Public imports
 -----------------
 
+import public Data.Sigma.Sigma

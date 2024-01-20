@@ -9,4 +9,5 @@ module Relation.Binary
 -----------------
 
 import public Relation.Binary.Binary
+import public Relation.Binary.Equality
 import public Relation.Binary.Properties

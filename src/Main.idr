@@ -1,5 +1,6 @@
 module Main
 
-main : IO ()
-main = do
-  putStrLn "OK"
+import Prelude
+
+main : IO Builtin.Unit
+main = pure Builtin.MkUnit

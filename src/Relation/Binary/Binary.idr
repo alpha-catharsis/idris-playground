@@ -9,7 +9,7 @@ module Relation.Binary.Binary
 ------------------
 
 public export
-Rel : Type -> Type ->Type
+Rel : Type -> Type -> Type
 Rel a b = a -> b -> Type
 
 ------------------------------
