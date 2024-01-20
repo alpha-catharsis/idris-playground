@@ -2,11 +2,10 @@
 -- Module declaration
 ---------------------
 
-module Rel
+module Function.Composition
 
 -----------------
 -- Public imports
 -----------------
 
-import public Rel.Pred
-import public Rel.Rel
+import public Function.Composition.Composition

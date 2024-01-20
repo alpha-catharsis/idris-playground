@@ -2,7 +2,7 @@
 -- Module declaration
 ---------------------
 
-module Rel.Pred
+module Relation.Unary.Pred
 
 ------------
 -- Predicate

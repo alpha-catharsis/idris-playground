@@ -16,3 +16,4 @@ data Inhabited : Type -> Type where
 public export
 inhabitant : Inhabited a => a
 inhabitant @{MkInhabited x} = x
+

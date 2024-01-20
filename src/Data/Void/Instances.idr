@@ -9,6 +9,7 @@ module Data.Void.Instances
 ----------
 
 import Data.Void.Void
+import Function.Identity
 import Types.Uninhabited
 
 ----------------------------
@@ -18,4 +19,4 @@ import Types.Uninhabited
 %hint
 public export
 uninhabitedVoid : Uninhabited Void
-uninhabitedVoid = MkUninhabited (\x => x)
+uninhabitedVoid = MkUninhabited id

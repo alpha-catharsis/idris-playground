@@ -2,12 +2,11 @@
 -- Module declaration
 ---------------------
 
-module Types
+module Function
 
 -----------------
 -- Public imports
 -----------------
 
-import public Types.Decidable
-import public Types.Inhabited
-import public Types.Uninhabited
+import public Function.Composition
+import public Function.Identity

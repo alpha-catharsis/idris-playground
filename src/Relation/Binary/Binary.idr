@@ -2,7 +2,7 @@
 -- Module declaration
 ---------------------
 
-module Rel.Rel
+module Relation.Binary.Binary
 
 ------------------
 -- Binary relation
@@ -11,3 +11,11 @@ module Rel.Rel
 public export
 Rel : Type -> Type ->Type
 Rel a b = a -> b -> Type
+
+------------------------------
+-- Homogeneous Binary relation
+------------------------------
+
+public export
+HRel : Type -> Type
+HRel a = Rel a a

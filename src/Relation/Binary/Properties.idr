@@ -2,12 +2,10 @@
 -- Module declaration
 ---------------------
 
-module Types
+module Relation.Binary.Properties
 
 -----------------
 -- Public imports
 -----------------
 
-import public Types.Decidable
-import public Types.Inhabited
-import public Types.Uninhabited
+import public Relation.Binary.Properties.Reflexive

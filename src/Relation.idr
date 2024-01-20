@@ -2,12 +2,11 @@
 -- Module declaration
 ---------------------
 
-module Types
+module Relation
 
 -----------------
 -- Public imports
 -----------------
 
-import public Types.Decidable
-import public Types.Inhabited
-import public Types.Uninhabited
+import public Relation.Binary
+import public Relation.Unary

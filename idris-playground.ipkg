@@ -13,7 +13,7 @@ authors = "Alpha Catharsis"
 -- depends =
 
 -- modules to install
-modules = Algebra, Data, Rel, Types
+modules = Algebra, Data, Function, Relation, Types
 
 -- main file (i.e. file to load at REPL)
 main = Main
