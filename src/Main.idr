@@ -1,6 +1,6 @@
 module Main
 
-import Prelude
+import Containers
 
-main : IO Builtin.Unit
-main = pure Builtin.MkUnit
+main : IO ()
+main = putStrLn "OK"

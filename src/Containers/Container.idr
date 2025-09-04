@@ -2,13 +2,13 @@
 -- Module declaration
 ---------------------
 
-module Data.Nat.Nat
+module Containers.Container
 
 -----------------
--- Nat data type
+-- Contains proof
 -----------------
 
 public export
-data Nat : Type where
-  Z : Nat
-  S : Nat -> Nat
+interface Container t a | t where
+  ContainsPrf : t -> a -> Type
+
