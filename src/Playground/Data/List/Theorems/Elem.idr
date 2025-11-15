@@ -13,6 +13,15 @@ import Playground.Data.List.Props.First
 import Playground.Data.List.Props.Last
 import Playground.Data.List.Props.Proper
 
+-------------------
+-- Element theorems
+-------------------
+
+export
+notElemUncons : Not (Elem x (y::xs)) -> Not (Elem x xs)
+notElemUncons elemContra Here = elemContra (There Here)
+notElemUncons elemContra (There elemPrf) = elemContra (There (There elemPrf))
+
 --------------------------
 -- Element append theorems
 --------------------------

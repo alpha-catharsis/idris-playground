@@ -15,8 +15,12 @@ import Decidable.Equality
 -------------------
 
 import Playground.Data.List.Props.Count
+import Playground.Data.List.Props.Elem
+import Playground.Data.List.Props.First
+import Playground.Data.List.Props.Last
 import Playground.Data.List.Props.Proper
 
+import Playground.Data.List.Theorems.Elem
 import Playground.Data.List.Theorems.Proper
 
 -----------------
@@ -53,5 +57,46 @@ countAppend (CountNext cntPrf eqContra) (CountNext cntPrf' eqContra') = CountNex
 export
 notProperZeroCount : {xs : List a} -> Not (Proper xs) -> Count Z x xs
 notProperZeroCount properContra = rewrite notProperNil properContra in CountZero
+
+----------------------
+-- Count elem theorems
+----------------------
+
+export
+notElemZeroCount : DecEq a => (x : a) -> (xs : List a) -> Not (Elem x xs) -> Count Z x xs
+notElemZeroCount x [] elemContra = CountZero
+notElemZeroCount x (y::xs) elemContra with (decEq x y)
+  notElemZeroCount x (y::xs) elemContra | No eqContra = CountNext (notElemZeroCount x xs (notElemUncons elemContra))  eqContra
+  notElemZeroCount x (y::xs) elemContra | Yes eqPrf = void (elemContra (rewrite eqPrf in Here))
+
+export
+elemExistPosCount : DecEq a => {x : a} -> {xs : List a} -> Elem x xs -> (m : Nat ** Count (S m) x xs)
+elemExistPosCount {xs=x::xs'} Here = (count x xs' ** CountSucc (countPrf x xs'))
+elemExistPosCount {xs=y::xs'} (There elemPrf) with (decEq x y)
+  elemExistPosCount {xs=y::xs'} (There elemPrf) | No eqContra = let (m ** cntPrf) = elemExistPosCount elemPrf
+                                                                in (m ** CountNext cntPrf eqContra)   
+  elemExistPosCount {xs=y::xs'} (There elemPrf) | Yes eqPrf = rewrite sym eqPrf in let (m ** cntPrf) = elemExistPosCount elemPrf
+                                                                            in (S m ** CountSucc cntPrf)   
+
+-----------------------
+-- Count first theorems
+-----------------------
+
+export
+firstExistPosCount : DecEq a => {x : a} -> {xs : List a} -> First x xs -> (m : Nat ** Count (S m) x xs)
+firstExistPosCount {xs=x::xs'} IsFirst = (count x xs' ** CountSucc (countPrf x xs'))
+
+----------------------
+-- Count last theorems
+----------------------
+
+export
+lastExistPosCount : DecEq a => {x : a} -> {xs : List a} -> Last x xs -> (m : Nat ** Count (S m) x xs)
+lastExistPosCount {xs=[x]} LastHere = (0 ** CountSucc CountZero)
+lastExistPosCount {xs=y::xs'} (LastThere lastPrf) with (decEq x y)
+  lastExistPosCount {xs=y::xs'} (LastThere lastPrf) | No eqContra = let (m ** cntPrf) = lastExistPosCount lastPrf
+                                                                    in (m ** CountNext cntPrf eqContra)
+  lastExistPosCount {xs=y::xs'} (LastThere lastPrf) | Yes eqPrf = rewrite sym eqPrf in let (m ** cntPrf) = lastExistPosCount lastPrf
+                                                                                       in (S m ** CountSucc cntPrf)   
 
 
