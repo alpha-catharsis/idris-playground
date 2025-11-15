@@ -8,11 +8,21 @@ module Playground.Data.List.Theorems.Proper
 -- Internal imports
 -------------------
 
+import Playground.Data.List.Props.Count
 import Playground.Data.List.Props.Elem
 import Playground.Data.List.Props.First
 import Playground.Data.List.Props.HasLength
 import Playground.Data.List.Props.Last
 import Playground.Data.List.Props.Proper
+
+------------------
+-- Proper theorems
+------------------
+
+export
+notProperNil : {xs : List a} -> Not (Proper xs) -> xs = []
+notProperNil {xs=[]} properContra = Refl
+notProperNil {xs=x::xs'} properContra = void (properContra IsProper)
 
 -------------------------
 -- Proper append theorems
@@ -58,5 +68,18 @@ lastProper (LastThere lastPrf) = IsProper
 -----------------------------
 
 export
+zeroLengthNotProper : HasLength xs Z -> Not (Proper xs)
+zeroLengthNotProper ZeroLen IsProper impossible
+
+export
 hasPosLengthProper : HasLength xs (S m) -> Proper xs
 hasPosLengthProper (SuccLen lenPrf) = IsProper
+
+------------------------
+-- Proper count theorems
+------------------------
+
+export
+posCountProper : Count (S m) x xs -> Proper xs
+posCountProper (CountSucc cntPrf) = IsProper
+posCountProper (CountNext cntPrf eqContra) = IsProper

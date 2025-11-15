@@ -11,6 +11,15 @@ module Playground.Data.List.Theorems.Last
 import Playground.Data.List.Props.Last
 import Playground.Data.List.Props.Proper
 
+----------------
+-- Last theorems
+----------------
+
+export
+lastPrf : (xs : List a) -> (properPrf : Proper xs) -> Last (last xs properPrf) xs
+lastPrf [x] IsProper = LastHere
+lastPrf (x::x'::xs) IsProper = LastThere (lastPrf (x' :: xs) IsProper)
+
 -----------------------
 -- Last append theorems
 -----------------------

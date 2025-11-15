@@ -8,6 +8,7 @@ module Playground.Data.List.Theorems
 -- Public imports
 -----------------
 
+import public Playground.Data.List.Theorems.Count
 import public Playground.Data.List.Theorems.Elem
 import public Playground.Data.List.Theorems.EndsWith
 import public Playground.Data.List.Theorems.First

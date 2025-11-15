@@ -10,6 +10,12 @@ module Playground.Data.List.Props.First
 
 import Decidable.Equality
 
+-------------------
+-- Internal imports
+-------------------
+
+import Playground.Data.List.Props.Proper
+
 --------------
 -- First proof
 --------------
@@ -29,6 +35,22 @@ Uninhabited (First x []) where
 export
 {eqContra : Not (x = y)} -> Uninhabited (First x (y::xs)) where
   uninhabited IsFirst = eqContra Refl
+
+------------------
+-- First injective
+------------------
+
+export
+firstInjective : First x xs -> First y xs -> x = y
+firstInjective IsFirst IsFirst = Refl
+
+-----------------
+-- First function
+-----------------
+
+public export
+first : (xs : List a) -> Proper xs -> a
+first (x::xs) IsProper = x
 
 ------------------
 -- First decidable

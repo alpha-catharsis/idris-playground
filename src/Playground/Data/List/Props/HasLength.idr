@@ -30,6 +30,15 @@ export
   uninhabited (SuccLen lenPrf) = lenContra lenPrf
 
 -----------------------
+-- Has length injective
+-----------------------
+
+export
+hasLengthInjective : HasLength xs m -> HasLength xs n -> m = n
+hasLengthInjective ZeroLen ZeroLen = Refl
+hasLengthInjective (SuccLen lenPrf) (SuccLen lenPrf') = cong S (hasLengthInjective lenPrf lenPrf')
+
+-----------------------
 -- Has length decidable
 -----------------------
 

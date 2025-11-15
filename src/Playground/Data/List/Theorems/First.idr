@@ -11,6 +11,14 @@ module Playground.Data.List.Theorems.First
 import Playground.Data.List.Props.First
 import Playground.Data.List.Props.Proper
 
+-----------------
+-- First theorems
+-----------------
+
+export
+firstPrf : (properPrf : Proper xs) -> First (first xs properPrf) xs
+firstPrf IsProper = IsFirst
+
 ------------------------
 -- First append theorems
 ------------------------

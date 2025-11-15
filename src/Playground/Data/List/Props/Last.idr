@@ -10,6 +10,12 @@ module Playground.Data.List.Props.Last
 
 import Decidable.Equality
 
+-------------------
+-- Internal imports
+-------------------
+
+import Playground.Data.List.Props.Proper
+
 -------------
 -- Last proof
 -------------
@@ -18,7 +24,7 @@ public export
 data Last : a -> List a -> Type where
   LastHere : Last x [x]
   LastThere : Last x xs -> Last x (y::xs)
-  
+
 -----------------------------
 -- Last uninhabited instances
 -----------------------------
@@ -35,6 +41,26 @@ export
 export
 {eqContra : Not (x = y)} -> Uninhabited (Last x [y]) where
   uninhabited LastHere = eqContra Refl
+
+-----------------
+-- Last injective
+-----------------
+
+export
+lastInjective : Last x xs -> Last y xs -> x = y
+lastInjective LastHere LastHere = Refl
+lastInjective LastHere (LastThere lastPrf') = void (uninhabited lastPrf')
+lastInjective (LastThere lastPrf) LastHere = void (uninhabited lastPrf)
+lastInjective (LastThere lastPrf) (LastThere lastPrf') = lastInjective lastPrf lastPrf'
+
+----------------
+-- Last function
+----------------
+
+public export
+last : (xs : List a) -> Proper xs -> a
+last [x] IsProper = x
+last (x::x'::xs) IsProper = last (x'::xs) IsProper
 
 -----------------
 -- Last decidable
