@@ -12,6 +12,25 @@ import Playground.Data.List.Props.Elem
 import Playground.Data.List.Props.First
 import Playground.Data.List.Props.StartsWith
 
+---------------------
+-- StartsWith theorem
+---------------------
+
+export
+startsWithCons : StartsWith xs ys -> StartsWith (x::xs) (x::ys)
+startsWithCons StartsNil = StartsNext StartsNil
+startsWithCons (StartsNext startsPrf) = StartsNext (startsWithCons startsPrf)
+
+export
+startsWithUncons : StartsWith (x::xs) (x::ys) -> StartsWith xs ys
+startsWithUncons (StartsNext startsPrf) = startsPrf
+
+export
+startsWithUnappend : {ys, zs : List a} -> StartsWith xs (ys ++ zs) -> StartsWith xs ys
+startsWithUnappend {ys=[]} startsPrf = StartsNil
+startsWithUnappend {ys=y::ys'} StartsNil impossible
+startsWithUnappend {ys=y::ys'} (StartsNext startsPrf) = startsWithCons (startsWithUnappend startsPrf)
+
 -----------------------------
 -- StartsWith append theorems
 -----------------------------

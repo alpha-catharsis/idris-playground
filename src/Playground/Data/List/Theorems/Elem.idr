@@ -12,6 +12,7 @@ import Playground.Data.List.Props.Count
 import Playground.Data.List.Props.Elem
 import Playground.Data.List.Props.EndsWith
 import Playground.Data.List.Props.First
+import Playground.Data.List.Props.HasLength
 import Playground.Data.List.Props.Last
 import Playground.Data.List.Props.Proper
 import Playground.Data.List.Props.StartsWith
@@ -93,9 +94,22 @@ elemEndsWithElem Here (EndsPrev endsPrf) = There (elemEndsWithElem Here endsPrf)
 elemEndsWithElem (There elemPrf) EndsSame = There (elemEndsWithElem elemPrf EndsSame)
 elemEndsWithElem (There elemPrf {xs=as}) (EndsPrev endsPrf {xs=bs}) = There (elemEndsWithElem elemPrf (endsWithUnsnoc endsPrf))
 
+------------------------------
+-- Element has length theorems
+------------------------------
+
+export
+zeroLengthNotElem : HasLength xs Z -> Not (Elem x xs)
+zeroLengthNotElem ZeroLen elemPrf = void (uninhabited elemPrf)
+
 -------------------------
 -- Element count theorems
 -------------------------
+
+export
+zeroCountNotElem : Count Z x xs -> Not (Elem x xs)
+zeroCountNotElem (CountNext cntPrf eqContra) Here = eqContra Refl
+zeroCountNotElem (CountNext cntPrf eqContra) (There elemPrf) = zeroCountNotElem cntPrf elemPrf
 
 export
 posCountElem : Count (S m) x xs -> Elem x xs
