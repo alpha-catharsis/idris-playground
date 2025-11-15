@@ -27,3 +27,6 @@ export
 notProperNotFirst : Not (Proper xs) -> Not (First x xs)
 notProperNotFirst properContra IsFirst = properContra IsProper
 
+export
+properExistFirst : (xs : List a) -> Proper xs -> (x : a ** First x xs)
+properExistFirst (x::xs) IsProper = (x ** IsFirst)

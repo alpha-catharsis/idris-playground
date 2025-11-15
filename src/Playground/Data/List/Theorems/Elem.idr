@@ -38,6 +38,10 @@ notProperNotElem : Not (Proper xs) -> Not (Elem x xs)
 notProperNotElem properContra Here = properContra IsProper
 notProperNotElem properContra (There elemPrf) = properContra IsProper
 
+export
+properExistElem : (xs : List a) -> Proper xs -> (x : a ** Elem x xs)
+properExistElem (x::xs) IsProper = (x ** Here)
+
 -------------------------
 -- Element first theorems
 -------------------------

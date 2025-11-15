@@ -31,3 +31,8 @@ notProperNotLast : Not (Proper xs) -> Not (Last x xs)
 notProperNotLast properContra LastHere = properContra IsProper
 notProperNotLast properContra (LastThere lastPrf) = properContra IsProper
 
+export
+properExistLast : (xs : List a) -> Proper xs -> (x : a ** Last x xs)
+properExistLast [x] IsProper = (x ** LastHere)
+properExistLast (x::x'::xs) IsProper = let (xlast ** lastPrf) = properExistLast (x'::xs) IsProper
+                                       in (xlast ** LastThere lastPrf)
