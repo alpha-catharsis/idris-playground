@@ -10,10 +10,12 @@ module Playground.Data.List.Theorems.Proper
 
 import Playground.Data.List.Props.Count
 import Playground.Data.List.Props.Elem
+import Playground.Data.List.Props.EndsWith
 import Playground.Data.List.Props.First
 import Playground.Data.List.Props.HasLength
 import Playground.Data.List.Props.Last
 import Playground.Data.List.Props.Proper
+import Playground.Data.List.Props.StartsWith
 
 ------------------
 -- Proper theorems
@@ -74,6 +76,23 @@ zeroLengthNotProper ZeroLen IsProper impossible
 export
 hasPosLengthProper : HasLength xs (S m) -> Proper xs
 hasPosLengthProper (SuccLen lenPrf) = IsProper
+
+------------------------------
+-- Proper starts with theorems
+------------------------------
+
+export
+properStartsWithProper : Proper ys -> StartsWith xs ys -> Proper xs
+properStartsWithProper IsProper (StartsNext startPrf) = IsProper
+
+------------------------------
+-- Proper ends with theorems
+------------------------------
+
+export
+properEndsWithProper : Proper ys -> EndsWith xs ys -> Proper xs
+properEndsWithProper IsProper EndsSame = IsProper
+properEndsWithProper IsProper (EndsPrev endsPrf) = IsProper
 
 ------------------------
 -- Proper count theorems

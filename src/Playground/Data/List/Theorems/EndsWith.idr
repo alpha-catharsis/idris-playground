@@ -12,6 +12,15 @@ import Playground.Data.List.Props.Elem
 import Playground.Data.List.Props.EndsWith
 import Playground.Data.List.Props.Last
 
+-------------------
+-- EndsWith theorem
+-------------------
+
+export
+endsWithUnsnoc : EndsWith xs (y::ys) -> EndsWith xs ys
+endsWithUnsnoc EndsSame = EndsPrev EndsSame
+endsWithUnsnoc (EndsPrev endsPrf) = EndsPrev (endsWithUnsnoc endsPrf)
+
 ---------------------------
 -- EndsWith append theorems
 ---------------------------

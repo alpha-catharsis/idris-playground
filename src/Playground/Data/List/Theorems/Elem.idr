@@ -8,10 +8,15 @@ module Playground.Data.List.Theorems.Elem
 -- Internal imports
 -------------------
 
+import Playground.Data.List.Props.Count
 import Playground.Data.List.Props.Elem
+import Playground.Data.List.Props.EndsWith
 import Playground.Data.List.Props.First
 import Playground.Data.List.Props.Last
 import Playground.Data.List.Props.Proper
+import Playground.Data.List.Props.StartsWith
+
+import Playground.Data.List.Theorems.EndsWith
 
 -------------------
 -- Element theorems
@@ -32,11 +37,11 @@ elemLeftAppendElem Here = Here
 elemLeftAppendElem (There elemPrf) = There (elemLeftAppendElem elemPrf)
 
 export
-elemRightAppendElem : (xs : List a) -> Elem x ys -> Elem x (xs ++ ys)
-elemRightAppendElem [] Here = Here
-elemRightAppendElem [] (There elemPrf) = There elemPrf
-elemRightAppendElem (x::xs) Here = There (elemRightAppendElem xs Here)
-elemRightAppendElem (x::xs) (There elemPrf) = There (elemRightAppendElem xs (There elemPrf))
+elemRightAppendElem : {xs : List a} -> Elem x ys -> Elem x (xs ++ ys)
+elemRightAppendElem {xs=[]} Here = Here
+elemRightAppendElem {xs=[]} (There elemPrf) = There elemPrf
+elemRightAppendElem {xs=x::xs'} Here = There (elemRightAppendElem Here)
+elemRightAppendElem {xs=x::xs'} (There elemPrf) = There (elemRightAppendElem (There elemPrf))
 
 --------------------------
 -- Element proper theorems
@@ -48,8 +53,8 @@ notProperNotElem properContra Here = properContra IsProper
 notProperNotElem properContra (There elemPrf) = properContra IsProper
 
 export
-properExistElem : (xs : List a) -> Proper xs -> (x : a ** Elem x xs)
-properExistElem (x::xs) IsProper = (x ** Here)
+properExistElem : {xs : List a} -> Proper xs -> (x : a ** Elem x xs)
+properExistElem {xs=x::xs'} IsProper = (x ** Here)
 
 -------------------------
 -- Element first theorems
@@ -67,3 +72,32 @@ export
 lastElem : Last x xs -> Elem x xs
 lastElem LastHere = Here
 lastElem (LastThere lastPrf)  = There (lastElem lastPrf)
+
+------------------------------
+-- Element starts with theorems
+------------------------------
+
+export
+elemStartsWithElem : Elem x ys -> StartsWith xs ys -> Elem x xs
+elemStartsWithElem Here (StartsNext startsPrf) = Here
+elemStartsWithElem (There elemPrf) (StartsNext startsPrf) = There (elemStartsWithElem elemPrf startsPrf)
+
+------------------------------
+-- Element ends with theorems
+------------------------------
+
+export
+elemEndsWithElem : Elem z ys -> EndsWith xs ys -> Elem z xs
+elemEndsWithElem Here EndsSame = Here
+elemEndsWithElem Here (EndsPrev endsPrf) = There (elemEndsWithElem Here endsPrf)
+elemEndsWithElem (There elemPrf) EndsSame = There (elemEndsWithElem elemPrf EndsSame)
+elemEndsWithElem (There elemPrf {xs=as}) (EndsPrev endsPrf {xs=bs}) = There (elemEndsWithElem elemPrf (endsWithUnsnoc endsPrf))
+
+-------------------------
+-- Element count theorems
+-------------------------
+
+export
+posCountElem : Count (S m) x xs -> Elem x xs
+posCountElem (CountSucc cntPrf) = Here
+posCountElem (CountNext cntPrf eqContra) = There (posCountElem cntPrf)
