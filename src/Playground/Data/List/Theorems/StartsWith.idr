@@ -26,5 +26,5 @@ startsWithLeftAppendStartsWith (StartsNext startsPrf) = StartsNext (startsWithLe
 -----------------------------
 
 export
-firstStartWith : First x xs -> StartsWith xs [x]
-firstStartWith IsFirst = StartsNext StartsNil
+firstStartsWith : First x xs -> StartsWith xs [x]
+firstStartsWith IsFirst = StartsNext StartsNil
