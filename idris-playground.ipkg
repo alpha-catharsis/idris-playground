@@ -13,14 +13,14 @@ authors = "Alpha Catharsis"
 -- depends =
 
 -- modules to install
-modules = Containers, Data
+modules = Playground
 
 -- main file (i.e. file to load at REPL)
 main = Main
 
 -- name of executable
 executable = "playground"
-opts = "--total --Werror"
+opts = "--total -Werror"
 sourcedir = "src"
 -- builddir =
 -- outputdir =

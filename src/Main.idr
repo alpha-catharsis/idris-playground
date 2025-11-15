@@ -1,7 +1,6 @@
 module Main
 
-import Containers
-import Data
+import Playground
 
 main : IO ()
 main = putStrLn "OK"

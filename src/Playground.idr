@@ -2,10 +2,10 @@
 -- Module declaration
 ---------------------
 
-module Data
+module Playground
 
 -----------------
 -- Public imports
 -----------------
 
-import public Data.List
+import public Playground.Data

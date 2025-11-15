@@ -1,10 +1,11 @@
-{ pkgs ? import <nixpkgs> {} }:
-
-pkgs.mkShell {
+let
+  unstable = import (fetchTarball https://nixos.org/channels/nixos-unstable/nixexprs.tar.xz) { };
+in
+{ nixpkgs ? import <nixpkgs> {} }:
+with nixpkgs; mkShell {
   buildInputs = [
-    pkgs.idris2
+    unstable.idris2
 
-    # keep this line if you use bash
-    pkgs.bashInteractive
+    nixpkgs.bashInteractive
   ];
 }
