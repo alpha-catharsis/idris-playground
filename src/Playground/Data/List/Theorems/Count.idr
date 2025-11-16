@@ -98,5 +98,3 @@ lastExistPosCount {xs=y::xs'} (LastThere lastPrf) with (decEq x y)
                                                                     in (m ** CountNext cntPrf eqContra)
   lastExistPosCount {xs=y::xs'} (LastThere lastPrf) | Yes eqPrf = rewrite sym eqPrf in let (m ** cntPrf) = lastExistPosCount lastPrf
                                                                                        in (S m ** CountSucc cntPrf)   
-
-

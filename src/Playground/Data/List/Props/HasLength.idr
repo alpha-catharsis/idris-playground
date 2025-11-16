@@ -50,4 +50,3 @@ decHasLength (x::xs) Z = No absurd
 decHasLength (x::xs) (S m) = case decHasLength xs m of
   No lenContra => No absurd
   Yes lenPrf => Yes (SuccLen lenPrf)
-

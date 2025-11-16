@@ -11,8 +11,9 @@ module Playground.Data.List.Theorems.First
 import Playground.Data.List.Props.Count
 import Playground.Data.List.Props.Elem
 import Playground.Data.List.Props.First
-import Playground.Data.List.Props.HasLength
 import Playground.Data.List.Props.Proper
+
+import Playground.Data.List.Theorems.Proper
 
 -----------------
 -- First theorems
@@ -21,6 +22,11 @@ import Playground.Data.List.Props.Proper
 export
 firstPrf : (properPrf : Proper xs) -> First (first xs properPrf) xs
 firstPrf IsProper = IsFirst
+
+export
+prfToFirst : (firstPrf : First x xs) -> first xs (firstProper firstPrf) = x
+prfToFirst firstPrf with (firstProper firstPrf)
+  prfToFirst IsFirst | IsProper = Refl
 
 ------------------------
 -- First append theorems
@@ -49,12 +55,4 @@ properExistFirst (x::xs) IsProper = (x ** IsFirst)
 export
 notElemNotFirst : Not (Elem x xs) -> Not (First x xs)
 notElemNotFirst elemContra IsFirst = elemContra Here
-
-----------------------------
--- First has length theorems
-----------------------------
-
-export
-zeroLengthNotFirst : HasLength xs Z -> Not (First x xs)
-zeroLengthNotFirst ZeroLen IsFirst impossible
 

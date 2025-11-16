@@ -35,9 +35,9 @@ properLeftAppendProper : Proper xs -> Proper (xs ++ ys)
 properLeftAppendProper IsProper = IsProper
 
 export
-properRightAppendProper : (xs : List a) -> Proper ys -> Proper (xs ++ ys)
-properRightAppendProper [] IsProper = IsProper
-properRightAppendProper (x::xs) IsProper = IsProper
+properRightAppendProper : {xs : List a} -> Proper ys -> Proper (xs ++ ys)
+properRightAppendProper {xs=[]} IsProper = IsProper
+properRightAppendProper {xs=x::xs'} IsProper = IsProper
 
 --------------------------
 -- Proper element theorems

@@ -45,4 +45,3 @@ decEndsWith (x::xs) ys = case decEq (x::xs) ys of
     No endsContra => No absurd
     Yes endsPrf => Yes (EndsPrev endsPrf)
   Yes eqPrf => Yes (rewrite eqPrf in EndsSame)
-
